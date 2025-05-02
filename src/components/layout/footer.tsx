@@ -1,26 +1,30 @@
 import Link from 'next/link';
-import { Home, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Home } from 'lucide-react'; // Removed social media icons
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
+  // Updated footer sections to align with new pages
   const footerSections = [
     {
-      title: 'Company',
+      title: 'Navigate',
       links: [
+        { href: '/', label: 'Home' },
         { href: '/about', label: 'About Us' },
-        { href: '/careers', label: 'Careers' },
-        { href: '/press', label: 'Press' },
-        { href: '/blog', label: 'Blog' },
+        { href: '/listings', label: 'Listings' },
+        { href: '/services', label: 'Services' },
+        { href: '/contact', label: 'Contact' },
       ],
     },
     {
       title: 'Resources',
       links: [
-        { href: '#calculator', label: 'Mortgage Calculator' },
-        { href: '/guides', label: 'Buyer Guides' },
-        { href: '/guides', label: 'Seller Guides' },
-        { href: '/faq', label: 'FAQ' },
+        // Keep calculator link as it's a component/section, not a full page here
+        { href: '/#home-calculator', label: 'Mortgage Calculator' }, // Link to section on home
+        // Add links to future guide pages if planned
+        // { href: '/guides/buyers', label: 'Buyer Guides' },
+        // { href: '/guides/sellers', label: 'Seller Guides' },
+        { href: '/faq', label: 'FAQ' }, // Assuming an FAQ page might exist
       ],
     },
     {
@@ -33,12 +37,6 @@ export function Footer() {
     },
   ];
 
-  const socialLinks = [
-    { href: 'https://facebook.com', icon: Facebook, label: 'Facebook' },
-    { href: 'https://twitter.com', icon: Twitter, label: 'Twitter' },
-    { href: 'https://instagram.com', icon: Instagram, label: 'Instagram' },
-    { href: 'https://linkedin.com', icon: Linkedin, label: 'LinkedIn' },
-  ];
 
   return (
     <footer className="bg-muted text-muted-foreground mt-16 md:mt-24">
@@ -86,20 +84,10 @@ export function Footer() {
           <p className="text-xs text-center md:text-left mb-4 md:mb-0">
             &copy; {currentYear} EstateFindr. All rights reserved.
           </p>
-          <div className="flex space-x-4">
-            {socialLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label={link.label}
-              >
-                <link.icon className="h-5 w-5" />
-              </Link>
-            ))}
-          </div>
+          {/* Social Links Removed */}
+           <div className="flex space-x-4">
+             {/* Placeholder if needed later, currently empty */}
+           </div>
         </div>
       </div>
     </footer>

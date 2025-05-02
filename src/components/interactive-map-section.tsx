@@ -24,7 +24,8 @@ export function InteractiveMapSection({ properties }: InteractiveMapSectionProps
   const mapId = process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID;
 
   return (
-    <section id="map" className="container py-12 md:py-16">
+    // Container div without the section ID
+    <div className="container py-12 md:py-16">
       <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Explore Properties on the Map</h2>
       <Card className="shadow-lg overflow-hidden">
         <CardContent className="p-0">
@@ -70,6 +71,6 @@ export function InteractiveMapSection({ properties }: InteractiveMapSectionProps
        <p className="text-center text-muted-foreground mt-4 text-sm">
             Click on a marker to view property details.
           </p>
-    </section>
+    </div>
   );
 }

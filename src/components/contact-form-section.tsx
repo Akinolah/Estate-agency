@@ -100,7 +100,8 @@ export function ContactFormSection() {
 
 
   return (
-    <section id="contact" className="container py-12 md:py-16">
+    // Container div without the section ID
+    <div className="container py-12 md:py-16">
       <Card className="max-w-2xl mx-auto shadow-lg">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl md:text-4xl font-bold">Get In Touch</CardTitle>
@@ -182,6 +183,6 @@ export function ContactFormSection() {
           </Form>
         </CardContent>
       </Card>
-    </section>
+    </div>
   );
 }

@@ -38,7 +38,8 @@ export function GalleryRoom({ properties }: GalleryRoomProps) {
 
 
     return (
-        <section id="gallery" className="container py-12 md:py-16">
+        // Container div without the section ID
+        <div className="container py-12 md:py-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Gallery Room</h2>
              <p className="text-muted-foreground text-center mb-8">
                 Explore beautiful images from our listings. Click an image to enlarge.
@@ -120,6 +121,6 @@ export function GalleryRoom({ properties }: GalleryRoomProps) {
                      )}
                 </DialogContent>
             </Dialog>
-        </section>
+        </div>
     );
 }

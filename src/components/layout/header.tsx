@@ -1,67 +1,59 @@
+
+'use client';
+
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button'; // Import buttonVariants
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Home, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Menu, Home } from 'lucide-react';
+import { cn } from '@/lib/utils'; // Import cn
 
 export function Header() {
+  // Updated navigation items for page links
   const navItems = [
-    { href: '#listings', label: 'Listings' },
-    { href: '#recommendations', label: 'Recommendations' },
-    { href: '#map', label: 'Map' },
-    { href: '#tours', label: 'Virtual Tours' },
-    { href: '#calculator', label: 'Calculator' }, // Updated label slightly
-    { href: '#reviews', label: 'Reviews' },
-    { href: '#contact', label: 'Contact' },
-  ];
-
-  const socialLinks = [
-    { href: 'https://facebook.com', icon: Facebook, label: 'Facebook' },
-    { href: 'https://twitter.com', icon: Twitter, label: 'Twitter' },
-    { href: 'https://instagram.com', icon: Instagram, label: 'Instagram' },
-    { href: 'https://linkedin.com', icon: Linkedin, label: 'LinkedIn' },
+    { href: '/', label: 'Home' },
+    { href: '/about', label: 'About' },
+    { href: '/listings', label: 'Listings' }, // Assuming listings page route
+    { href: '/services', label: 'Services' },
+    { href: '/contact', label: 'Contact' },
   ];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center space-x-2">
-          <Home className="h-6 w-6 text-primary" />
-          <span className="font-bold sm:inline-block">EstateFindr</span>
-        </Link>
-
-        {/* Desktop Navigation (Centered) */}
-        <nav className="hidden flex-1 items-center justify-center space-x-4 text-sm font-medium md:flex lg:space-x-6">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="transition-colors hover:text-foreground/80 text-foreground/60 px-2 py-1 rounded-md" // Added padding and rounding
-            >
-              {item.label}
+      <div className="container flex h-14 items-center">
+        {/* Logo - Pushed to the left */}
+        <div className="mr-4 flex">
+             <Link href="/" className="flex items-center space-x-2">
+                 <Home className="h-6 w-6 text-primary" />
+                <span className="font-bold sm:inline-block">EstateFindr</span>
             </Link>
-          ))}
+        </div>
+
+
+        {/* Desktop Navigation - Centered */}
+        <nav className="hidden flex-1 items-center justify-center md:flex">
+            <div className="flex space-x-4 text-sm font-medium lg:space-x-6">
+              {navItems.map((item) => (
+                <Link
+                  key={item.label} // Use label as key if hrefs might not be unique temporarily
+                  href={item.href}
+                  className="transition-colors hover:text-foreground/80 text-foreground/60 px-2 py-1 rounded-md" // Added padding and rounding
+                >
+                  {item.label}
+                </Link>
+              ))}
+             </div>
         </nav>
 
-        {/* Desktop Social Icons (Right) */}
-        <div className="hidden items-center space-x-3 md:flex">
-          {socialLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-              aria-label={link.label}
-            >
-              <link.icon className="h-5 w-5" />
-            </Link>
-          ))}
-           <Button size="sm" variant="outline">Log In</Button> {/* Example Login Button */}
+        {/* CTA Button - Pushed to the right */}
+        <div className="hidden items-center space-x-3 md:flex ml-4">
+           {/* Replace Button asChild with styled Link */}
+           <Link href="/listings" className={cn(buttonVariants({ size: "sm" }))}>
+             Buy Properties
+           </Link>
         </div>
 
         {/* Mobile Menu Trigger (Right) */}
-        <div className="flex items-center md:hidden">
+        <div className="flex items-center md:hidden ml-auto"> {/* Use ml-auto to push trigger right */}
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
@@ -82,7 +74,7 @@ export function Header() {
                 <nav className="flex flex-col space-y-2 px-4 flex-grow">
                   {navItems.map((item) => (
                     <Link
-                      key={item.href}
+                      key={item.label}
                       href={item.href}
                       className="block px-3 py-2 text-base font-medium hover:bg-accent rounded-md" // Adjusted styling
                     >
@@ -90,23 +82,12 @@ export function Header() {
                     </Link>
                   ))}
                  </nav>
-                 {/* Mobile Footer (Optional: Login/Social) */}
+                 {/* Mobile Footer (CTA) */}
                  <div className="p-4 mt-auto border-t">
-                    <Button className="w-full mb-4" variant="outline">Log In</Button>
-                    <div className="flex justify-center space-x-4">
-                       {socialLinks.map((link) => (
-                        <Link
-                          key={link.label}
-                          href={link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-muted-foreground hover:text-foreground transition-colors"
-                          aria-label={link.label}
-                        >
-                          <link.icon className="h-5 w-5" />
-                        </Link>
-                      ))}
-                    </div>
+                    {/* Replace Button asChild with styled Link */}
+                    <Link href="/listings" className={cn(buttonVariants({ className: "w-full" }))}>
+                      Buy Properties
+                    </Link>
                  </div>
               </div>
             </SheetContent>
@@ -116,3 +97,4 @@ export function Header() {
     </header>
   );
 }
+

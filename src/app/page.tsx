@@ -114,30 +114,60 @@ const sampleReviews = [
   },
 ];
 
+// These IDs correspond to potential sections if needed for internal linking or styling,
+// even though the main nav links to pages now.
+const SECTION_IDS = {
+  listings: 'home-listings',
+  recommendations: 'home-recommendations',
+  gallery: 'home-gallery',
+  map: 'home-map',
+  tours: 'home-tours',
+  calculator: 'home-calculator',
+  reviews: 'home-reviews',
+  contact: 'home-contact',
+};
+
+
 export default function Home() {
   return (
     <div className="flex flex-col space-y-16 md:space-y-24">
       <HeroSlider />
 
-      <PropertyListings initialProperties={sampleProperties} />
+      {/* Sections on the homepage */}
+      <section id={SECTION_IDS.listings}>
+        <PropertyListings initialProperties={sampleProperties} />
+      </section>
 
-      <PropertyRecommendations />
+      <section id={SECTION_IDS.recommendations}>
+        <PropertyRecommendations />
+      </section>
 
        {/* Conditionally render Gallery Room if there are properties with gallery images */}
       {sampleProperties.some(p => p.galleryImages && p.galleryImages.length > 0) && (
-        <GalleryRoom properties={sampleProperties.filter(p => p.galleryImages && p.galleryImages.length > 0)} />
+        <section id={SECTION_IDS.gallery}>
+             <GalleryRoom properties={sampleProperties.filter(p => p.galleryImages && p.galleryImages.length > 0)} />
+         </section>
       )}
 
+      <section id={SECTION_IDS.map}>
+        <InteractiveMapSection properties={sampleProperties} />
+      </section>
 
-      <InteractiveMapSection properties={sampleProperties} />
+      <section id={SECTION_IDS.tours}>
+         <VirtualToursSection properties={sampleProperties} />
+       </section>
 
-      <VirtualToursSection properties={sampleProperties} />
+      <section id={SECTION_IDS.calculator}>
+        <MortgageCalculatorSection />
+      </section>
 
-      <MortgageCalculatorSection />
+      <section id={SECTION_IDS.reviews}>
+        <CustomerReviews reviews={sampleReviews} />
+       </section>
 
-      <CustomerReviews reviews={sampleReviews} />
-
-      <ContactFormSection />
+      <section id={SECTION_IDS.contact}>
+        <ContactFormSection />
+      </section>
     </div>
   );
 }

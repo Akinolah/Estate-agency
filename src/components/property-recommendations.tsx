@@ -139,7 +139,8 @@ export function PropertyRecommendations() {
 
 
   return (
-    <section id="recommendations" className="container py-12 md:py-16">
+    // Container div without the section ID
+    <div className="container py-12 md:py-16">
       <Card className="bg-secondary/50 shadow-md">
         <CardHeader>
           <CardTitle className="text-2xl md:text-3xl font-bold text-center">
@@ -176,6 +177,6 @@ export function PropertyRecommendations() {
           )}
         </CardContent>
       </Card>
-    </section>
+    </div>
   );
 }

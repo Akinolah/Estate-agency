@@ -24,7 +24,8 @@ export function CustomerReviews({ reviews }: CustomerReviewsProps) {
   }
 
   return (
-    <section id="reviews" className="bg-muted py-12 md:py-16">
+    // Container div without the section ID
+    <div className="bg-muted py-12 md:py-16">
       <div className="container">
         <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">What Our Clients Say</h2>
 
@@ -77,6 +78,6 @@ export function CustomerReviews({ reviews }: CustomerReviewsProps) {
            )}
         </Carousel>
       </div>
-    </section>
+    </div>
   );
 }

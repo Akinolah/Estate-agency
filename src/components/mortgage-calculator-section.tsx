@@ -77,7 +77,8 @@ export function MortgageCalculatorSection() {
   }
 
   return (
-    <section id="calculator" className="container py-12 md:py-16">
+    // Container div without the section ID
+    <div className="container py-12 md:py-16">
        <Card className="max-w-md mx-auto shadow-lg">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl md:text-4xl font-bold">Mortgage Calculator</CardTitle>
@@ -153,6 +154,6 @@ export function MortgageCalculatorSection() {
             </CardFooter>
          )}
       </Card>
-    </section>
+    </div>
   );
 }

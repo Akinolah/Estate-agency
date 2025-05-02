@@ -29,7 +29,8 @@ export function VirtualToursSection({ properties }: VirtualToursSectionProps) {
 
 
   return (
-    <section id="tours" className="container py-12 md:py-16">
+    // Container div without the section ID
+    <div className="container py-12 md:py-16">
       <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Immersive Virtual Tours</h2>
       <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
         Explore properties from the comfort of your home with our high-definition virtual tours. Click 'Virtual Tour' on a listing below.
@@ -81,6 +82,6 @@ export function VirtualToursSection({ properties }: VirtualToursSectionProps) {
             </DialogContent>
         </Dialog>
 
-    </section>
+    </div>
   );
 }

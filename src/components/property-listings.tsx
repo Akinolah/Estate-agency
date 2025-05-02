@@ -81,7 +81,8 @@ export function PropertyListings({ initialProperties }: PropertyListingsProps) {
   }, [properties, locationFilter, priceRangeFilter, typeFilter, bedroomsFilter, bathroomsFilter, sortBy]);
 
   return (
-    <section id="listings" className="container py-12 md:py-16">
+    // Container div without the section ID
+    <div className="container py-12 md:py-16">
       <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Property Listings</h2>
 
       {/* Filters */}
@@ -207,6 +208,6 @@ export function PropertyListings({ initialProperties }: PropertyListingsProps) {
 
        {/* TODO: Add Pagination if needed */}
 
-    </section>
+    </div>
   );
 }

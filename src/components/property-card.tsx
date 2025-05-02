@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from 'next/image';
@@ -104,21 +105,24 @@ export function PropertyCard({ property }: PropertyCardProps) {
          </p>
           <div className="flex gap-2 flex-wrap">
              {property.virtualTourUrl && (
-                <Button variant="outline" size="sm" asChild>
-                    <Link href={property.virtualTourUrl} target="_blank" rel="noopener noreferrer">
-                        <Video className="mr-1" /> Virtual Tour
+                // Removed asChild from Button wrapping Link
+                <Button variant="outline" size="sm">
+                    <Link href={property.virtualTourUrl} target="_blank" rel="noopener noreferrer" className="flex items-center">
+                        <Video className="mr-1 h-4 w-4" /> Virtual Tour
                     </Link>
                 </Button>
             )}
              {property.galleryImages && property.galleryImages.length > 0 && (
+                // Removed asChild from Button triggering modal
                 <Button variant="outline" size="sm" onClick={() => { /* TODO: Open Gallery Modal */ }}>
-                    <Users className="mr-1" /> Gallery Room
+                    <Users className="mr-1 h-4 w-4" /> Gallery Room
                 </Button>
             )}
             {property['3dAnimationUrl'] && (
-                <Button variant="outline" size="sm" asChild>
-                    <Link href={property['3dAnimationUrl']} target="_blank" rel="noopener noreferrer">
-                        <Orbit className="mr-1" /> 3D View
+                 // Removed asChild from Button wrapping Link
+                <Button variant="outline" size="sm">
+                    <Link href={property['3dAnimationUrl']} target="_blank" rel="noopener noreferrer" className="flex items-center">
+                        <Orbit className="mr-1 h-4 w-4" /> 3D View
                     </Link>
                 </Button>
              )}
