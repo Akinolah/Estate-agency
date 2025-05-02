@@ -1,11 +1,12 @@
 
+
 'use client';
 
 import Link from 'next/link';
-import { Button, buttonVariants } from '@/components/ui/button'; // Import buttonVariants
+import { Button } from '@/components/ui/button'; // Keep Button import
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Home } from 'lucide-react';
-import { cn } from '@/lib/utils'; // Import cn
+import { cn } from '@/lib/utils'; // Keep cn import
 
 export function Header() {
   // Updated navigation items for page links
@@ -46,10 +47,10 @@ export function Header() {
 
         {/* CTA Button - Pushed to the right */}
         <div className="hidden items-center space-x-3 md:flex ml-4">
-           {/* Replace Button asChild with styled Link */}
-           <Link href="/listings" className={cn(buttonVariants({ size: "sm" }))}>
-             Buy Properties
-           </Link>
+           {/* Revert back to Button asChild */}
+           <Button size="sm" asChild>
+             <Link href="/listings">Buy Properties</Link>
+           </Button>
         </div>
 
         {/* Mobile Menu Trigger (Right) */}
@@ -84,10 +85,10 @@ export function Header() {
                  </nav>
                  {/* Mobile Footer (CTA) */}
                  <div className="p-4 mt-auto border-t">
-                    {/* Replace Button asChild with styled Link */}
-                    <Link href="/listings" className={cn(buttonVariants({ className: "w-full" }))}>
-                      Buy Properties
-                    </Link>
+                    {/* Revert back to Button asChild */}
+                    <Button className="w-full" asChild>
+                     <Link href="/listings">Buy Properties</Link>
+                    </Button>
                  </div>
               </div>
             </SheetContent>
