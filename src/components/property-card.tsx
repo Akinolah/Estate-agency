@@ -3,10 +3,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { BedDouble, Bath, Square, MapPin, Video, Users, ThumbsUp, Orbit } from 'lucide-react';
+import { BedDouble, Bath, Square, MapPin, Video, Users, ThumbsUp, Orbit, Phone, MessageSquare } from 'lucide-react'; // Added Phone, MessageSquare
 import type { Property } from '@/types/property';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
@@ -23,38 +23,53 @@ interface PropertyCardProps {
   property: Property;
 }
 
+// Example contact info - ideally this comes from property data or agent info
+const agentContact = {
+    phone: '(123) 456-7890',
+    whatsappNumber: '+11234567890', // Use international format
+}
+
 export function PropertyCard({ property }: PropertyCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <Card
-      className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col"
+      className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col h-full" // Added h-full
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <CardHeader className="p-0 relative">
         <Carousel className="w-full">
             <CarouselContent>
-             {property.images.map((img, index) => (
-               <CarouselItem key={index}>
-                <div className="aspect-video relative w-full">
-                    <Image
-                      src={img}
-                      alt={`${property.address} - Image ${index + 1}`}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      style={{ objectFit: 'cover' }}
-                      className={cn(
-                        'transition-transform duration-500 ease-in-out',
-                        isHovered ? 'scale-105' : 'scale-100'
-                      )}
-                      data-ai-hint="house exterior interior"
-                    />
-                 </div>
-               </CarouselItem>
-             ))}
+             {property.images && property.images.length > 0 ? (
+                property.images.map((img, index) => (
+                   <CarouselItem key={index}>
+                    <div className="aspect-video relative w-full">
+                        <Image
+                          src={img}
+                          alt={`${property.address} - Image ${index + 1}`}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          style={{ objectFit: 'cover' }}
+                          className={cn(
+                            'transition-transform duration-500 ease-in-out',
+                            isHovered ? 'scale-105' : 'scale-100'
+                          )}
+                          data-ai-hint="house exterior interior"
+                        />
+                     </div>
+                   </CarouselItem>
+                 ))
+             ) : (
+                 // Placeholder if no images
+                 <CarouselItem>
+                    <div className="aspect-video relative w-full bg-muted flex items-center justify-center">
+                       <Home className="w-12 h-12 text-muted-foreground opacity-50" />
+                    </div>
+                 </CarouselItem>
+             )}
             </CarouselContent>
-            {property.images.length > 1 && (
+             {property.images && property.images.length > 1 && (
               <>
                 <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-background/50 hover:bg-background/80 text-foreground" />
                 <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-background/50 hover:bg-background/80 text-foreground" />
@@ -76,7 +91,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
             </Badge>
         )}
       </CardHeader>
-      <CardContent className="p-4 flex-grow">
+       <CardContent className="p-4 flex flex-col flex-grow"> {/* Added flex flex-col flex-grow */}
         <CardTitle className="text-xl font-semibold mb-1 truncate">
           ${property.price.toLocaleString()}
         </CardTitle>
@@ -100,39 +115,43 @@ export function PropertyCard({ property }: PropertyCardProps) {
             </div>
           )}
         </div>
-         <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
+         <p className="text-sm text-muted-foreground line-clamp-2 mb-4 flex-grow"> {/* Added flex-grow */}
             {property.description}
          </p>
-          <div className="flex gap-2 flex-wrap">
+          {/* Moved action buttons to CardFooter */}
+      </CardContent>
+       <CardFooter className="p-4 pt-2 border-t mt-auto flex flex-wrap gap-2 justify-start"> {/* Added mt-auto, border-t, justify-start */}
              {property.virtualTourUrl && (
-                // Removed asChild from Button wrapping Link
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" asChild>
                     <Link href={property.virtualTourUrl} target="_blank" rel="noopener noreferrer" className="flex items-center">
-                        <Video className="mr-1 h-4 w-4" /> Virtual Tour
+                        <Video className="mr-1 h-4 w-4" /> Tour
                     </Link>
                 </Button>
             )}
              {property.galleryImages && property.galleryImages.length > 0 && (
-                // Removed asChild from Button triggering modal
                 <Button variant="outline" size="sm" onClick={() => { /* TODO: Open Gallery Modal */ }}>
-                    <Users className="mr-1 h-4 w-4" /> Gallery Room
+                    <Users className="mr-1 h-4 w-4" /> Gallery
                 </Button>
             )}
             {property['3dAnimationUrl'] && (
-                 // Removed asChild from Button wrapping Link
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" asChild>
                     <Link href={property['3dAnimationUrl']} target="_blank" rel="noopener noreferrer" className="flex items-center">
                         <Orbit className="mr-1 h-4 w-4" /> 3D View
                     </Link>
                 </Button>
              )}
-          </div>
-
-      </CardContent>
-       {/* Optional Footer */}
-       {/* <CardFooter className="p-4 pt-0">
-           <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90">View Details</Button>
-       </CardFooter> */}
+             {/* Contact Buttons */}
+             <Button variant="outline" size="sm" asChild>
+                  <a href={`tel:${agentContact.phone.replace(/\D/g, '')}`} className="flex items-center">
+                    <Phone className="mr-1 h-4 w-4" /> Call
+                 </a>
+             </Button>
+            <Button variant="outline" size="sm" asChild>
+                 <a href={`https://wa.me/${agentContact.whatsappNumber}?text=Hi,%20I'm%20interested%20in%20the%20property%20at%20${encodeURIComponent(property.address)}%20(ID:%20${property.id})`} target="_blank" rel="noopener noreferrer" className="flex items-center">
+                    <MessageSquare className="mr-1 h-4 w-4" /> WhatsApp
+                 </a>
+            </Button>
+       </CardFooter>
     </Card>
   );
 }

@@ -6,6 +6,7 @@ import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
 import { MapsProvider } from '@/components/providers/maps-provider'; // Import the new provider
 import { QueryClientProvider } from '@/components/providers/query-client-provider';
+import { BackToTopButton } from '@/components/back-to-top'; // Import BackToTopButton
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth"> {/* Added scroll-smooth */}
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
@@ -40,6 +41,7 @@ export default function RootLayout({
             <main className="flex-grow">{children}</main>
             <Footer />
             <Toaster />
+            <BackToTopButton /> {/* Add BackToTopButton */}
           </MapsProvider>
         </QueryClientProvider>
       </body>

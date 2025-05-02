@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,10 +15,15 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { useState } from 'react';
-import { Loader2, Send } from 'lucide-react';
+import { Loader2, Send, User, Mail, Phone, MessageCircle, Building, HelpCircle, Home } from 'lucide-react'; // Added Home import
+
+const inquiryTypes = ["Buying a Property", "Selling a Property", "General Inquiry", "Feedback", "Other"];
+const contactMethods = ["Email", "Phone"];
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -26,11 +32,20 @@ const formSchema = z.object({
   email: z.string().email({
     message: 'Please enter a valid email address.',
   }),
+   phone: z.string().optional(), // Optional phone number
+  inquiryType: z.enum(inquiryTypes as [string, ...string[]], { // Ensure Zod gets a non-empty array type
+        required_error: "Please select an inquiry type.",
+     }),
+  preferredContactMethod: z.enum(contactMethods as [string, ...string[]], {
+      required_error: "Please select a preferred contact method.",
+  }),
   subject: z.string().min(5, {
     message: 'Subject must be at least 5 characters.',
   }),
   message: z.string().min(10, {
     message: 'Message must be at least 10 characters.',
+  }).max(1000, { // Add a max length
+    message: 'Message cannot exceed 1000 characters.',
   }),
 });
 
@@ -46,9 +61,9 @@ const submitContactForm = async (data: FormData): Promise<{ success: boolean; me
   const success = Math.random() > 0.2; // 80% success rate
 
   if (success) {
-    return { success: true, message: "Your message has been sent successfully! We'll be in touch soon." };
+    return { success: true, message: `Thank you, ${data.name}! Your message regarding '${data.inquiryType}' has been sent. We'll contact you via ${data.preferredContactMethod} soon.` };
   } else {
-    return { success: false, message: "Something went wrong. Please try again later." };
+    return { success: false, message: "Something went wrong while sending your message. Please try again later or contact us directly." };
   }
 };
 
@@ -62,6 +77,9 @@ export function ContactFormSection() {
     defaultValues: {
       name: '',
       email: '',
+      phone: '',
+      inquiryType: undefined, // Set initial undefined for Select placeholder
+      preferredContactMethod: undefined, // Set initial undefined for RadioGroup
       subject: '',
       message: '',
     },
@@ -76,6 +94,7 @@ export function ContactFormSection() {
            toast({
              title: "Message Sent!",
              description: result.message,
+             duration: 5000, // Keep toast longer
            });
            form.reset(); // Reset form fields on success
          } else {
@@ -90,7 +109,7 @@ export function ContactFormSection() {
         console.error("Form submission error:", error);
          toast({
             title: "Error",
-            description: "An unexpected error occurred. Please try again.",
+            description: "An unexpected error occurred during submission. Please try again.",
             variant: "destructive",
           });
     } finally {
@@ -102,42 +121,137 @@ export function ContactFormSection() {
   return (
     // Container div without the section ID
     <div className="container py-12 md:py-16">
-      <Card className="max-w-2xl mx-auto shadow-lg">
-        <CardHeader className="text-center">
-          <CardTitle className="text-3xl md:text-4xl font-bold">Get In Touch</CardTitle>
-          <CardDescription>
-            Have questions or want to discuss a property? Fill out the form below.
-          </CardDescription>
+      <Card className="max-w-2xl mx-auto shadow-lg border border-border/60 rounded-xl overflow-hidden">
+         <CardHeader className="bg-muted/50 p-6 border-b border-border/60">
+            <div className="flex items-center gap-3">
+                 <div className="bg-primary text-primary-foreground p-3 rounded-lg">
+                    <Mail className="w-6 h-6" />
+                 </div>
+                 <div>
+                    <CardTitle className="text-2xl font-semibold">Get In Touch</CardTitle>
+                     <CardDescription>Fill out the form below, and we'll get back to you promptly.</CardDescription>
+                 </div>
+            </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6 md:p-8">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Full Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="John Doe" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email Address</FormLabel>
-                    <FormControl>
-                      <Input type="email" placeholder="you@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Full Name</FormLabel>
+                         <FormControl>
+                             <div className="relative">
+                                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                <Input placeholder="John Doe" {...field} className="pl-10" />
+                             </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                 <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                       <FormItem>
+                        <FormLabel>Email Address</FormLabel>
+                         <FormControl>
+                            <div className="relative">
+                                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                <Input type="email" placeholder="you@example.com" {...field} className="pl-10" />
+                            </div>
+                         </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+               </div>
+
+                 <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                       <FormItem>
+                         <FormLabel>Phone Number <span className="text-muted-foreground text-xs">(Optional)</span></FormLabel>
+                         <FormControl>
+                             <div className="relative">
+                                <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                <Input type="tel" placeholder="(123) 456-7890" {...field} className="pl-10" />
+                             </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <FormField
+                    control={form.control}
+                    name="inquiryType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Reason for Contact</FormLabel>
+                         <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select inquiry type..." />
+                               </SelectTrigger>
+                            </FormControl>
+                             <SelectContent>
+                                {inquiryTypes.map((type) => (
+                                     <SelectItem key={type} value={type}>
+                                        <span className="flex items-center">
+                                            {type === "Buying a Property" && <Building className="mr-2 h-4 w-4 opacity-70" />}
+                                             {type === "Selling a Property" && <Home className="mr-2 h-4 w-4 opacity-70" />}
+                                             {type === "General Inquiry" && <HelpCircle className="mr-2 h-4 w-4 opacity-70" />}
+                                             {type === "Feedback" && <MessageCircle className="mr-2 h-4 w-4 opacity-70" />}
+                                             {type === "Other" && <HelpCircle className="mr-2 h-4 w-4 opacity-70" />}
+                                             {type}
+                                         </span>
+                                    </SelectItem>
+                                ))}
+                             </SelectContent>
+                          </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                   <FormField
+                      control={form.control}
+                      name="preferredContactMethod"
+                      render={({ field }) => (
+                        <FormItem className="space-y-3">
+                          <FormLabel>Preferred Contact Method</FormLabel>
+                          <FormControl>
+                            <RadioGroup
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                              className="flex space-x-4 pt-1" // Adjust spacing/layout
+                            >
+                               {contactMethods.map(method => (
+                                <FormItem key={method} className="flex items-center space-x-2 space-y-0">
+                                    <FormControl>
+                                     <RadioGroupItem value={method} />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">
+                                      {method}
+                                    </FormLabel>
+                                </FormItem>
+                               ))}
+                            </RadioGroup>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                </div>
+
               <FormField
                 control={form.control}
                 name="subject"
@@ -145,7 +259,7 @@ export function ContactFormSection() {
                   <FormItem>
                     <FormLabel>Subject</FormLabel>
                     <FormControl>
-                      <Input placeholder="Inquiry about property..." {...field} />
+                      <Input placeholder="Regarding Property ID 123..." {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -159,23 +273,30 @@ export function ContactFormSection() {
                     <FormLabel>Message</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Tell us more about what you're looking for..."
-                        className="min-h-[120px]"
+                        placeholder="Please provide details about your inquiry..."
+                        className="min-h-[150px] resize-y" // Allow vertical resize
                         {...field}
                       />
                     </FormControl>
+                     <FormDescription className="text-xs text-right">
+                       {field.value?.length || 0} / 1000 characters
+                     </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full" disabled={isSubmitting}>
+              <Button
+                 type="submit"
+                 className="w-full py-3 text-base font-semibold transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-[1.02]" // Enhanced button style
+                 disabled={isSubmitting}
+                >
                  {isSubmitting ? (
                     <>
-                     <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending...
+                     <Loader2 className="mr-2 h-5 w-5 animate-spin" /> Sending...
                     </>
                  ) : (
                     <>
-                     <Send className="mr-2 h-4 w-4" /> Send Message
+                     <Send className="mr-2 h-5 w-5" /> Send Your Message
                     </>
                  )}
               </Button>

@@ -19,4 +19,8 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
 )
 Input.displayName = "Input"
 
+// Removed the duplicate export statement below
+// export { Input }
+
+// Keep only one export statement
 export { Input }

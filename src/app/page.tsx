@@ -1,6 +1,6 @@
 import { HeroSlider } from '@/components/hero-slider';
 import { PropertyListings } from '@/components/property-listings';
-import { PropertyRecommendations } from '@/components/property-recommendations';
+// import { PropertyRecommendations } from '@/components/property-recommendations'; // Removed
 import { InteractiveMapSection } from '@/components/interactive-map-section';
 import { VirtualToursSection } from '@/components/virtual-tours-section';
 import { MortgageCalculatorSection } from '@/components/mortgage-calculator-section';
@@ -118,7 +118,7 @@ const sampleReviews = [
 // even though the main nav links to pages now.
 const SECTION_IDS = {
   listings: 'home-listings',
-  recommendations: 'home-recommendations',
+  // recommendations: 'home-recommendations', // Removed
   gallery: 'home-gallery',
   map: 'home-map',
   tours: 'home-tours',
@@ -138,9 +138,12 @@ export default function Home() {
         <PropertyListings initialProperties={sampleProperties} />
       </section>
 
+      {/* Property Recommendations section removed */}
+      {/*
       <section id={SECTION_IDS.recommendations}>
         <PropertyRecommendations />
       </section>
+      */}
 
        {/* Conditionally render Gallery Room if there are properties with gallery images */}
       {sampleProperties.some(p => p.galleryImages && p.galleryImages.length > 0) && (

@@ -41,12 +41,17 @@ export function GalleryRoom({ properties }: GalleryRoomProps) {
         // Container div without the section ID
         <div className="container py-12 md:py-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Gallery Room</h2>
-             <p className="text-muted-foreground text-center mb-8">
+             <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
                 Explore beautiful images from our listings. Click an image to enlarge.
             </p>
 
             {allGalleryImages.length > 0 ? (
-                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                 // Dynamic Masonry-like layout using CSS columns
+                 <div
+                    className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 gap-4 space-y-4"
+                    // Style for masonry effect - ensures images fill columns naturally
+                    style={{ columnFill: 'balance' }}
+                 >
                     {allGalleryImages.map((image, index) => {
                          // Find the property this image belongs to
                          const property = properties.find(p => p.id === image.propertyId);
@@ -56,24 +61,27 @@ export function GalleryRoom({ properties }: GalleryRoomProps) {
                          const imageIndexInProperty = property.galleryImages?.findIndex(img => img.id === image.id) ?? 0;
 
                         return (
-                            <Card key={`${image.propertyId}-${image.id}`} className="overflow-hidden group cursor-pointer relative aspect-square shadow-md hover:shadow-lg transition-shadow duration-300" onClick={() => openModal(property, imageIndexInProperty)}>
+                            // Use figure for semantic meaning, break-inside avoids items breaking across columns
+                            <figure key={`${image.propertyId}-${image.id}`} className="overflow-hidden group cursor-pointer relative rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 block break-inside-avoid" onClick={() => openModal(property, imageIndexInProperty)}>
                                 <Image
                                     src={image.src}
                                     alt={image.alt}
-                                    fill
-                                    sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
-                                    style={{ objectFit: 'cover' }}
+                                    width={800} // Provide base width
+                                    height={600} // Provide base height to maintain aspect ratio
+                                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw" // Adjust sizes
+                                    style={{ width: '100%', height: 'auto', display: 'block' }} // Ensure image is responsive within its container
                                     className="transition-transform duration-300 ease-in-out group-hover:scale-105"
                                     data-ai-hint="real estate interior exterior detail"
                                 />
                                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                      <Maximize className="w-8 h-8 text-white" />
                                 </div>
-                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <p className="text-white text-xs font-medium truncate">{image.alt}</p>
-                                    <p className="text-white text-[10px] truncate">{image.propertyAddress}</p>
-                                </div>
-                            </Card>
+                                {/* Optional: Add caption inside figure */}
+                                <figcaption className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <p className="text-white text-sm font-medium truncate">{image.alt}</p>
+                                    <p className="text-white text-xs truncate">{image.propertyAddress}</p>
+                                 </figcaption>
+                            </figure>
                         );
                      })}
                 </div>
@@ -89,7 +97,7 @@ export function GalleryRoom({ properties }: GalleryRoomProps) {
                         <Carousel
                             opts={{
                                 startIndex: selectedImageIndex,
-                                loop: true,
+                                loop: selectedProperty.galleryImages.length > 1, // Loop only if more than one image
                              }}
                              className="w-full max-w-4xl max-h-[80vh]"
                              // Set API to control carousel from outside if needed
@@ -115,8 +123,12 @@ export function GalleryRoom({ properties }: GalleryRoomProps) {
                                     </CarouselItem>
                                 ))}
                             </CarouselContent>
-                           <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-background/50 hover:bg-background/80 text-foreground" />
-                           <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-background/50 hover:bg-background/80 text-foreground" />
+                           {selectedProperty.galleryImages.length > 1 && ( // Show arrows only if multiple images
+                                <>
+                                   <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-background/50 hover:bg-background/80 text-foreground" />
+                                   <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-background/50 hover:bg-background/80 text-foreground" />
+                                </>
+                           )}
                         </Carousel>
                      )}
                 </DialogContent>
