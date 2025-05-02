@@ -4,7 +4,7 @@ import './globals.css';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
-import { APIProvider } from '@vis.gl/react-google-maps';
+import { MapsProvider } from '@/components/providers/maps-provider'; // Import the new provider
 import { QueryClientProvider } from '@/components/providers/query-client-provider';
 
 const geistSans = Geist({
@@ -34,14 +34,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
         <QueryClientProvider>
-          <APIProvider
-            apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}
-          >
+          {/* Wrap the content that needs map context with MapsProvider */}
+          <MapsProvider>
             <Header />
             <main className="flex-grow">{children}</main>
             <Footer />
             <Toaster />
-          </APIProvider>
+          </MapsProvider>
         </QueryClientProvider>
       </body>
     </html>
