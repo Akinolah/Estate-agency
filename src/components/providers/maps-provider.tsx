@@ -11,15 +11,16 @@ interface MapsProviderProps {
 export function MapsProvider({ children }: MapsProviderProps) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
-  if (!apiKey) {
-    console.error("Google Maps API Key is missing. Please set NEXT_PUBLIC_GOOGLE_MAPS_API_KEY in your .env file. Map features will be disabled.");
+  if (!apiKey || apiKey === 'YOUR_MAPS_API_KEY_HERE') { // Check for placeholder too
+    console.error("Google Maps API Key is missing or invalid. Please set NEXT_PUBLIC_GOOGLE_MAPS_API_KEY in your .env.local file. Map features will be disabled.");
     // Render children without the provider to allow the rest of the app to function
     // You could also render a specific error component here
     return (
         <>
-            <div className="container py-4 text-center text-destructive bg-destructive/10 border border-destructive rounded-md">
-                <p className="font-semibold">Map Error</p>
-                <p className="text-sm">Google Maps API Key is missing. Please configure it in the <code>.env</code> file to enable map functionality.</p>
+            <div className="container py-4 text-center text-destructive bg-destructive/10 border border-destructive rounded-md my-4">
+                <p className="font-semibold">Map Configuration Error</p>
+                <p className="text-sm">Google Maps API Key (<code>NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code>) is missing or invalid. Please configure it in your <code>.env.local</code> file to enable map functionality.</p>
+                <p className="text-xs mt-1">Refer to the README.md for setup instructions.</p>
             </div>
              {/* Render children anyway, but map components might fail */}
             {children}
