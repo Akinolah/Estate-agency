@@ -10,16 +10,22 @@ interface InteractiveMapSectionProps {
   properties: Property[];
 }
 
+// Define default center coordinates based on the provided link
+const DEFAULT_CENTER_LAT = 6.5448678;
+const DEFAULT_CENTER_LNG = 3.2029503;
+const DEFAULT_ZOOM = 13; // Extracted from the 13.34z in the URL
+
+
 export function InteractiveMapSection({ properties }: InteractiveMapSectionProps) {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
 
-  // Calculate center of the map - simple average for now
+  // Calculate center of the map - simple average if properties exist, otherwise use default
   const centerLat = properties.length > 0
     ? properties.reduce((sum, p) => sum + p.latitude, 0) / properties.length
-    : 34.0522; // Default to LA
+    : DEFAULT_CENTER_LAT;
   const centerLng = properties.length > 0
     ? properties.reduce((sum, p) => sum + p.longitude, 0) / properties.length
-    : -118.2437; // Default to LA
+    : DEFAULT_CENTER_LNG;
 
   const mapId = process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID;
 
@@ -31,8 +37,8 @@ export function InteractiveMapSection({ properties }: InteractiveMapSectionProps
         <CardContent className="p-0">
           <div style={{ height: '60vh', width: '100%' }}>
             <Map
-              defaultCenter={{ lat: centerLat, lng: centerLng }}
-              defaultZoom={11}
+              center={{ lat: centerLat, lng: centerLng }} // Use calculated or default center
+              zoom={DEFAULT_ZOOM} // Use default zoom
               mapId={mapId} // Optional: Use a custom map style
               gestureHandling={'greedy'} // Allows easier interaction on touch devices
               disableDefaultUI={false}
