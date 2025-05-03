@@ -2,7 +2,8 @@
 'use client'; // Add this directive because CurrencyProvider uses context
 
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+// Import standard Google Fonts instead of Geist
+import { Inter, Roboto_Mono } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
@@ -12,15 +13,18 @@ import { QueryClientProvider } from '@/components/providers/query-client-provide
 import { BackToTopButton } from '@/components/back-to-top'; // Import BackToTopButton
 import { CurrencyProvider } from '@/components/providers/currency-provider'; // Import CurrencyProvider
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+// Configure standard Google Fonts
+const inter = Inter({
+  variable: '--font-inter', // Update variable name
   subsets: ['latin'],
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const roboto_mono = Roboto_Mono({
+  variable: '--font-roboto-mono', // Update variable name
   subsets: ['latin'],
+  weight: ['400', '700'], // Specify weights if needed
 });
+
 
 // Metadata cannot be defined in a client component. Move to a parent server component if needed.
 // export const metadata: Metadata = {
@@ -35,9 +39,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth"> {/* Added scroll-smooth */}
+    // Removed whitespace between <html> and <body> tag which causes hydration error
+    <html lang="en" className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
+        // Use the new font variable names
+        className={`${inter.variable} ${roboto_mono.variable} font-sans antialiased flex flex-col min-h-screen`} // Added font-sans as default
       >
         <QueryClientProvider>
           {/* Wrap the content that needs map context with MapsProvider */}
@@ -56,3 +62,4 @@ export default function RootLayout({
     </html>
   );
 }
+
