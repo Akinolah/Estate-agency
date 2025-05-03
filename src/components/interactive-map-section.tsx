@@ -1,10 +1,13 @@
+
 'use client';
 
 import { useState } from 'react';
 import { Map, AdvancedMarker, Pin, InfoWindow } from '@vis.gl/react-google-maps';
 import type { Property } from '@/types/property';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { PropertyCard } from './property-card'; // Reuse PropertyCard for InfoWindow content
+// Removed PropertyCard import for debugging
+// import { PropertyCard } from './property-card';
+import { useCurrency } from '@/hooks/useCurrency'; // Import currency hook
 
 interface InteractiveMapSectionProps {
   properties: Property[];
@@ -18,6 +21,7 @@ const DEFAULT_ZOOM = 13; // Extracted from the 13.34z in the URL
 
 export function InteractiveMapSection({ properties }: InteractiveMapSectionProps) {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
+  const { formatPrice } = useCurrency(); // Get currency formatting function
 
   // Calculate center of the map - simple average if properties exist, otherwise use default
   const centerLat = properties.length > 0
@@ -64,10 +68,19 @@ export function InteractiveMapSection({ properties }: InteractiveMapSectionProps
                   onCloseClick={() => setSelectedProperty(null)}
                   maxWidth={350} // Adjust max width as needed
                 >
-                  {/* Reuse PropertyCard for a consistent look, scaled down */}
+                  {/* Simplified InfoWindow content for debugging */}
+                  <div className="p-2 space-y-1">
+                     <h3 className="font-semibold text-base">{selectedProperty.address}</h3>
+                     <p className="text-sm text-muted-foreground">{selectedProperty.city}, {selectedProperty.state}</p>
+                     <p className="font-medium text-primary">{formatPrice(selectedProperty.price)}</p>
+                     <p className="text-xs">{selectedProperty.bedrooms} beds | {selectedProperty.bathrooms} baths</p>
+                  </div>
+                  {/*
+                  // Original code using PropertyCard:
                   <div className="w-[320px] p-1">
                     <PropertyCard property={selectedProperty} />
                   </div>
+                  */}
                 </InfoWindow>
               )}
             </Map>
@@ -80,3 +93,5 @@ export function InteractiveMapSection({ properties }: InteractiveMapSectionProps
     </div>
   );
 }
+
+      
