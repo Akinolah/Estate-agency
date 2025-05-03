@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -5,31 +6,32 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Link from 'next/link'; // Import Link
 
 const slides = [
   {
     id: 1,
-    imageUrl: 'https://picsum.photos/seed/slide1/1920/800',
-    alt: 'Modern House Exterior',
-    title: 'Find Your Dream Home Today',
-    subtitle: 'Explore thousands of listings with advanced search features.',
-    dataAiHint: 'modern house exterior day',
+    imageUrl: 'https://picsum.photos/seed/lagosHomeExt/1920/800',
+    alt: 'Modern Duplex Exterior in Lagos',
+    title: 'Discover Your Perfect Property in Nigeria',
+    subtitle: 'Explore premium listings in Lagos, Abuja, and beyond.',
+    dataAiHint: 'modern house exterior nigeria lagos duplex',
   },
   {
     id: 2,
-    imageUrl: 'https://picsum.photos/seed/slide2/1920/800',
-    alt: 'Cozy Living Room Interior',
-    title: 'Personalized Recommendations',
-    subtitle: 'Let our AI find properties tailored just for you.',
-     dataAiHint: 'cozy living room interior',
+    imageUrl: 'https://picsum.photos/seed/abujaLiving/1920/800',
+    alt: 'Spacious Living Room Interior in Abuja',
+    title: 'Expert Guidance for Buyers & Sellers',
+    subtitle: 'Our experienced agents help you navigate the Nigerian property market.',
+    dataAiHint: 'luxury living room interior nigeria abuja',
   },
   {
     id: 3,
-    imageUrl: 'https://picsum.photos/seed/slide3/1920/800',
-    alt: 'Family in front of a new house',
-    title: 'Expert Guidance Every Step',
-    subtitle: 'Our experienced agents are here to help you navigate the market.',
-     dataAiHint: 'family new house sold sign',
+    imageUrl: 'https://picsum.photos/seed/lekkiWaterfront/1920/800',
+    alt: 'Waterfront Property View in Lekki, Lagos',
+    title: 'Find Your Ideal Home or Investment',
+    subtitle: 'Browse diverse properties, from apartments to luxury estates.',
+    dataAiHint: 'waterfront property nigeria lekki lagos',
   },
 ];
 
@@ -114,7 +116,9 @@ export function HeroSlider() {
               >
                 {slide.subtitle}
               </p>
+              {/* Updated Button to use Link for navigation */}
               <Button
+                asChild // Use asChild to allow Link to control navigation
                 size="lg"
                 className={cn(
                   'bg-accent text-accent-foreground hover:bg-accent/90 transition-all duration-700 ease-out',
@@ -124,7 +128,8 @@ export function HeroSlider() {
                 )}
                  style={{ transitionDelay: index === currentIndex ? '0.6s' : '0s' }}
               >
-                Get Started
+                 {/* Simplified Link content */}
+                 <Link href="/listings">Explore Listings</Link>
               </Button>
             </div>
           </div>

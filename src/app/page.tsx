@@ -33,11 +33,11 @@ const sampleProperties: Property[] = [
       'Luxurious 5-bedroom detached duplex in the heart of Victoria Island. Features a swimming pool, BQ, and ample parking space.',
     videos: ['https://www.youtube.com/embed/dQw4w9WgXcQ'], // Example video
     '3dAnimationUrl': 'https://your-3d-provider.com/model/1', // Example 3D model URL
-    galleryImages: [ // Add gallery images for Gallery Room
-      { id: 'g1', src: 'https://picsum.photos/seed/gallery1a/800/600', alt: 'Living Room' },
-      { id: 'g2', src: 'https://picsum.photos/seed/gallery1b/800/600', alt: 'Kitchen' },
-      { id: 'g3', src: 'https://picsum.photos/seed/gallery1c/800/600', alt: 'Master Bedroom' },
-      { id: 'g4', src: 'https://picsum.photos/seed/gallery1d/800/600', alt: 'Swimming Pool' },
+    galleryImages: [ // Updated gallery images for Gallery Room with relevant hints
+      { id: 'g1', src: 'https://picsum.photos/seed/gallery1aNG/800/600', alt: 'Modern Living Room Lagos', 'data-ai-hint': 'modern living room interior luxury nigeria' },
+      { id: 'g2', src: 'https://picsum.photos/seed/gallery1bNG/800/600', alt: 'Fitted Kitchen VI', 'data-ai-hint': 'luxury kitchen interior appliances nigeria' },
+      { id: 'g3', src: 'https://picsum.photos/seed/gallery1cNG/800/600', alt: 'Master Bedroom Suite Lagos', 'data-ai-hint': 'master bedroom interior luxury bed nigeria' },
+      { id: 'g4', src: 'https://picsum.photos/seed/gallery1dNG/800/600', alt: 'Swimming Pool Area VI', 'data-ai-hint': 'swimming pool house exterior luxury nigeria' },
     ],
     isFeatured: true,
     amenities: ['Swimming Pool', "Boys' Quarters", '24/7 Security', 'Gym'],
@@ -63,10 +63,10 @@ const sampleProperties: Property[] = [
       'Modern 4-bedroom terrace house in a serene estate in Wuse 2. Comes with fitted kitchen and ensuite rooms.',
     videos: [],
     '3dAnimationUrl': undefined,
-    galleryImages: [
-      { id: 'g5', src: 'https://picsum.photos/seed/gallery2a/800/600', alt: 'Exterior View' },
-      { id: 'g6', src: 'https://picsum.photos/seed/gallery2b/800/600', alt: 'Bedroom' },
-      { id: 'g7', src: 'https://picsum.photos/seed/gallery2c/800/600', alt: 'Fitted Kitchen' },
+    galleryImages: [ // Updated gallery images
+      { id: 'g5', src: 'https://picsum.photos/seed/gallery2aNG/800/600', alt: 'Terrace Exterior Abuja', 'data-ai-hint': 'terrace house exterior abuja nigeria' },
+      { id: 'g6', src: 'https://picsum.photos/seed/gallery2bNG/800/600', alt: 'Bedroom Abuja', 'data-ai-hint': 'bedroom interior modern nigeria' },
+      { id: 'g7', src: 'https://picsum.photos/seed/gallery2cNG/800/600', alt: 'Fitted Kitchen Wuse 2', 'data-ai-hint': 'kitchen interior fitted modern nigeria' },
     ],
      isFeatured: false,
     amenities: ['Gated Estate', 'Fitted Kitchen', 'Interlocked Compound'],
@@ -89,9 +89,9 @@ const sampleProperties: Property[] = [
       'Well-maintained 3-bedroom flat in a serviced apartment block in Lekki Phase 1. Close to shops and restaurants.',
     videos: [],
     '3dAnimationUrl': undefined,
-     galleryImages: [
-      { id: 'g8', src: 'https://picsum.photos/seed/gallery3a/800/600', alt: 'Living Area' },
-      { id: 'g9', src: 'https://picsum.photos/seed/gallery3b/800/600', alt: 'Kitchenette' },
+     galleryImages: [ // Updated gallery images
+      { id: 'g8', src: 'https://picsum.photos/seed/gallery3aNG/800/600', alt: 'Apartment Living Area Lekki', 'data-ai-hint': 'apartment living area interior nigeria' },
+      { id: 'g9', src: 'https://picsum.photos/seed/gallery3bNG/800/600', alt: 'Kitchenette Lekki', 'data-ai-hint': 'kitchenette interior apartment nigeria' },
     ],
      isFeatured: false,
      amenities: ['Serviced Apartment', 'Standby Generator', 'Water Treatment'],

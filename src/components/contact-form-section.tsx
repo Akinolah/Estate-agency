@@ -51,19 +51,32 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-// Mock function to simulate form submission
+// Mock function to simulate form submission - logs data to console
+// Sending email directly from the client-side is insecure and generally not feasible.
+// You would typically send the data to a backend API or serverless function.
 const submitContactForm = async (data: FormData): Promise<{ success: boolean; message: string }> => {
-  console.log("Submitting form data:", data);
+  console.log("--- Contact Form Submission ---");
+  console.log("Name:", data.name);
+  console.log("Email:", data.email);
+  console.log("Phone:", data.phone || 'Not Provided');
+  console.log("Inquiry Type:", data.inquiryType);
+  console.log("Preferred Contact:", data.preferredContactMethod);
+  console.log("Subject:", data.subject);
+  console.log("Message:", data.message);
+  console.log("-----------------------------");
+  console.log("INFO: To send email, integrate with a backend service (e.g., Node.js + Nodemailer, SendGrid API, Resend API via Server Action).");
+
   // Simulate network delay
   await new Promise(resolve => setTimeout(resolve, 1500));
 
-  // Simulate success/failure
-  const success = Math.random() > 0.2; // 80% success rate
+  // Assume success for demonstration purposes
+  const success = true;
 
   if (success) {
-    return { success: true, message: `Thank you, ${data.name}! Your message regarding '${data.inquiryType}' has been sent. We'll contact you via ${data.preferredContactMethod} soon.` };
+    return { success: true, message: `Thank you, ${data.name}! Your message regarding '${data.inquiryType}' has been received (logged to console). We'll contact you via ${data.preferredContactMethod} soon.` };
   } else {
-    return { success: false, message: "Something went wrong while sending your message. Please try again later or contact us directly." };
+    // This part is less likely to be reached in the mock scenario
+    return { success: false, message: "Something went wrong while processing your message." };
   }
 };
 
@@ -92,7 +105,7 @@ export function ContactFormSection() {
 
          if (result.success) {
            toast({
-             title: "Message Sent!",
+             title: "Message Received!", // Changed title
              description: result.message,
              duration: 5000, // Keep toast longer
            });
@@ -180,7 +193,7 @@ export function ContactFormSection() {
                          <FormControl>
                              <div className="relative">
                                 <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                                <Input type="tel" placeholder="(123) 456-7890" {...field} className="pl-10" />
+                                <Input type="tel" placeholder="+234 801 234 5678" {...field} className="pl-10" />
                              </div>
                         </FormControl>
                         <FormMessage />

@@ -47,11 +47,11 @@ export function Footer() {
   ];
 
   const socialLinks = [
-    { href: 'https://x.com/estatefindr', label: 'Twitter', icon: Twitter },
-    { href: 'https://facebook.com/estatefindr', label: 'Facebook', icon: Facebook },
-    { href: 'https://instagram.com/estatefindr', label: 'Instagram', icon: Instagram },
-    { href: 'https://linkedin.com/company/estatefindr', label: 'LinkedIn', icon: Linkedin },
-     { href: 'https://youtube.com/@estatefindr', label: 'YouTube', icon: Youtube },
+    { href: 'https://x.com/estateagencyng', label: 'Twitter', icon: Twitter }, // Updated placeholder link
+    { href: 'https://facebook.com/estateagencyng', label: 'Facebook', icon: Facebook }, // Updated placeholder link
+    { href: 'https://instagram.com/estateagencyng', label: 'Instagram', icon: Instagram }, // Updated placeholder link
+    { href: 'https://linkedin.com/company/estateagencyng', label: 'LinkedIn', icon: Linkedin }, // Updated placeholder link
+     { href: 'https://youtube.com/@estateagencyng', label: 'YouTube', icon: Youtube }, // Updated placeholder link
   ];
 
 
@@ -64,11 +64,11 @@ export function Footer() {
             <Link href="/" className="flex items-center space-x-2 mb-4">
               <Home className="h-8 w-8 text-primary" />
               <span className="text-xl font-bold text-foreground">
-                EstateFindr
+                Estate Agency {/* Updated Project Name */}
               </span>
             </Link>
             <p className="text-sm mb-4">
-              Helping you find your dream home with advanced tools and expert
+              Helping you find your dream home in Nigeria with advanced tools and expert
               guidance. Explore listings, get personalized recommendations, and
               more.
             </p>
@@ -106,7 +106,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between items-center">
           <p className="text-xs text-center md:text-left mb-4 md:mb-0">
-            &copy; {currentYear} EstateFindr. All rights reserved. Made with ❤️.
+            &copy; {currentYear} Estate Agency. All rights reserved. {/* Updated Project Name and removed heart */}
           </p>
            {/* Social Media Links */}
            <div className="flex space-x-4">

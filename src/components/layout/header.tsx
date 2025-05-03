@@ -65,10 +65,10 @@ export function Header() {
               asChild
               className="group relative overflow-hidden transition-all duration-300 ease-out hover:shadow-md hover:scale-105 active:scale-95"
             >
-             <Link href="/listings">
-                 <span className="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
-                 <span className="relative z-10">Buy Properties</span>
-             </Link>
+              <Link href="/listings">
+                  {/* Simplified Link content */}
+                  Buy Properties
+              </Link>
            </Button>
         </div>
 
@@ -107,8 +107,11 @@ export function Header() {
                  </nav>
                  {/* Mobile Footer (CTA) */}
                  <div className="p-4 mt-auto border-t bg-muted/50">
-                     <Button className="w-full text-base py-3" asChild>
-                     <Link href="/listings">Buy Properties</Link>
+                    <Button className="w-full text-base py-3" asChild>
+                      <Link href="/listings">
+                         {/* Simplified Link content */}
+                         Buy Properties
+                      </Link>
                     </Button>
                  </div>
               </div>
