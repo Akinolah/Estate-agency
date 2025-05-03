@@ -13,10 +13,10 @@ interface InteractiveMapSectionProps {
   properties: Property[];
 }
 
-// Define default center coordinates based on the provided link
-const DEFAULT_CENTER_LAT = 6.5448678;
-const DEFAULT_CENTER_LNG = 3.2029503;
-const DEFAULT_ZOOM = 13; // Extracted from the 13.34z in the URL
+// Define default center coordinates based on the provided link (approx 10 Saka Tinubu St, VI)
+const DEFAULT_CENTER_LAT = 6.4297;
+const DEFAULT_CENTER_LNG = 3.4239;
+const DEFAULT_ZOOM = 15; // Adjusted zoom level for a specific address
 
 
 export function InteractiveMapSection({ properties }: InteractiveMapSectionProps) {
@@ -31,6 +31,10 @@ export function InteractiveMapSection({ properties }: InteractiveMapSectionProps
     ? properties.reduce((sum, p) => sum + p.longitude, 0) / properties.length
     : DEFAULT_CENTER_LNG;
 
+  // Determine zoom level: Use default if only one property (likely the office), or slightly zoomed out if multiple properties
+  const zoomLevel = properties.length <= 1 ? DEFAULT_ZOOM : 13;
+
+
   const mapId = process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID;
 
   return (
@@ -42,7 +46,7 @@ export function InteractiveMapSection({ properties }: InteractiveMapSectionProps
           <div style={{ height: '60vh', width: '100%' }}>
             <Map
               center={{ lat: centerLat, lng: centerLng }} // Use calculated or default center
-              zoom={DEFAULT_ZOOM} // Use default zoom
+              zoom={zoomLevel} // Use calculated zoom level
               mapId={mapId} // Optional: Use a custom map style
               gestureHandling={'greedy'} // Allows easier interaction on touch devices
               disableDefaultUI={false}
@@ -94,4 +98,4 @@ export function InteractiveMapSection({ properties }: InteractiveMapSectionProps
   );
 }
 
-      
+

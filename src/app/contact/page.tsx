@@ -7,7 +7,7 @@ import { Phone, Mail, MapPin, Clock, MessageSquare, Twitter, Facebook, Instagram
 import type { Property } from '@/types/property'; // Import Property type if needed for map
 import Link from 'next/link';
 
-// Define office location(s) - updated for Nigeria
+// Define office location(s) - updated for Nigeria and new coordinates
 const officeLocation: Property = {
   id: 'office-location',
   address: '10 Saka Tinubu Street', // Example address
@@ -18,8 +18,8 @@ const officeLocation: Property = {
   bathrooms: 0, // Not applicable
   type: 'Office',
   images: [], // No images needed for map marker usually
-  latitude: 6.4297, // Example: VI latitude
-  longitude: 3.4239, // Example: VI longitude
+  latitude: 6.4297, // Updated latitude
+  longitude: 3.4239, // Updated longitude
   description: 'Our Main Office Location (Lagos)',
    // Add other required fields from Property type with appropriate defaults/values
   area: undefined,
