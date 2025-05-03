@@ -19,8 +19,9 @@ export function MapsProvider({ children }: MapsProviderProps) {
         <>
             <div className="container py-4 text-center text-destructive bg-destructive/10 border border-destructive rounded-md my-4">
                 <p className="font-semibold">Map Configuration Error</p>
-                <p className="text-sm">Google Maps API Key (<code>NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code>) is missing or invalid. Please configure it in your <code>.env.local</code> file to enable map functionality.</p>
-                <p className="text-xs mt-1">Refer to the README.md for setup instructions.</p>
+                <p className="text-sm">Google Maps API Key (<code>NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code>) is missing or invalid. Please configure it in your <code>.env.local</code> file or Google Cloud Console to enable map functionality.</p>
+                <p className="text-xs mt-1">Ensure the key is valid, billing is enabled, and required APIs (Maps JavaScript API, Places API) are enabled. Refer to the README.md for setup instructions.</p>
+                 <p className="text-xs mt-1">Error: <code>InvalidKeyMapError</code></p>
             </div>
              {/* Render children anyway, but map components might fail */}
             {children}
