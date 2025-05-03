@@ -1,3 +1,4 @@
+
 // src/app/accessibility/page.tsx
 
 export default function AccessibilityPage() {
@@ -9,7 +10,7 @@ export default function AccessibilityPage() {
             <p className="text-center text-muted-foreground">Last Updated: {lastUpdated}</p>
 
             <p>
-                EstateFindr is committed to ensuring digital accessibility for people with disabilities. We are continually improving the user experience for everyone and applying the relevant accessibility standards.
+                Estate Agency is committed to ensuring digital accessibility for people with disabilities. We are continually improving the user experience for everyone and applying the relevant accessibility standards.
             </p>
 
             <h2>Conformance Status</h2>
@@ -17,11 +18,11 @@ export default function AccessibilityPage() {
                 The <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener noreferrer">Web Content Accessibility Guidelines (WCAG)</a> defines requirements for designers and developers to improve accessibility for people with disabilities. It defines three levels of conformance: Level A, Level AA, and Level AAA.
             </p>
             <p>
-                EstateFindr is partially conformant with WCAG 2.1 level AA. Partially conformant means that some parts of the content do not fully conform to the accessibility standard. We are actively working towards achieving full conformance.
+                Estate Agency is partially conformant with WCAG 2.1 level AA. Partially conformant means that some parts of the content do not fully conform to the accessibility standard. We are actively working towards achieving full conformance.
             </p>
 
              <h2>Measures Taken</h2>
-             <p>EstateFindr takes the following measures to ensure accessibility:</p>
+             <p>Estate Agency takes the following measures to ensure accessibility:</p>
             <ul>
                 <li>Include accessibility as part of our mission statement.</li>
                  <li>Integrate accessibility into our procurement practices.</li>
@@ -34,19 +35,19 @@ export default function AccessibilityPage() {
 
              <h2>Feedback</h2>
             <p>
-                 We welcome your feedback on the accessibility of EstateFindr. Please let us know if you encounter accessibility barriers:
+                 We welcome your feedback on the accessibility of Estate Agency. Please let us know if you encounter accessibility barriers:
             </p>
             <ul>
-                 <li>Phone: <a href="tel:+1234567890">(123) 456-7890</a></li>
-                 <li>E-mail: <a href="mailto:accessibility@estatefindr.com">accessibility@estatefindr.com</a></li>
-                 <li>Visitor Address: [Your Company Address Line 1], [City, State, Zip Code]</li>
-                 <li>Postal Address: [Your Company Address Line 1], [City, State, Zip Code]</li>
+                 <li>Phone: <a href="tel:+2348012345678">+234 801 234 5678</a></li> {/* Updated phone */}
+                 <li>E-mail: <a href="mailto:accessibility@estateagency.ng">accessibility@estateagency.ng</a></li> {/* Updated email */}
+                 <li>Visitor Address: 10 Saka Tinubu Street, Victoria Island, Lagos, Nigeria</li> {/* Updated address */}
+                 <li>Postal Address: 10 Saka Tinubu Street, Victoria Island, Lagos, Nigeria</li> {/* Updated address */}
             </ul>
              <p>We try to respond to feedback within 5 business days.</p>
 
             <h2>Technical Specifications</h2>
             <p>
-                Accessibility of EstateFindr relies on the following technologies to work with the particular combination of web browser and any assistive technologies or plugins installed on your computer:
+                Accessibility of Estate Agency relies on the following technologies to work with the particular combination of web browser and any assistive technologies or plugins installed on your computer:
             </p>
              <ul>
                 <li>HTML</li>
@@ -60,9 +61,9 @@ export default function AccessibilityPage() {
 
             <h2>Limitations and Alternatives</h2>
              <p>
-                Despite our best efforts to ensure accessibility of EstateFindr, there may be some limitations. Below is a description of known limitations, and potential solutions. Please contact us if you observe an issue not listed below.
+                Despite our best efforts to ensure accessibility of Estate Agency, there may be some limitations. Below is a description of known limitations, and potential solutions. Please contact us if you observe an issue not listed below.
             </p>
-             <p>Known limitations for EstateFindr:</p>
+             <p>Known limitations for Estate Agency:</p>
             <ul>
                 <li>
                      <strong>Third-party integrations:</strong> Embedded content such as maps or virtual tours from third-party providers may not fully conform to accessibility standards. We monitor these integrations and encourage providers to improve accessibility. If you encounter issues, please contact us for alternative access to the information.
@@ -76,7 +77,7 @@ export default function AccessibilityPage() {
 
             <h2>Assessment Approach</h2>
             <p>
-                EstateFindr assessed the accessibility of the website by the following approaches:
+                Estate Agency assessed the accessibility of the website by the following approaches:
              </p>
             <ul>
                 <li>Self-evaluation</li>

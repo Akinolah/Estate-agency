@@ -1,6 +1,6 @@
+
 import { HeroSlider } from '@/components/hero-slider';
 import { PropertyListings } from '@/components/property-listings';
-// import { PropertyRecommendations } from '@/components/property-recommendations'; // Removed
 import { InteractiveMapSection } from '@/components/interactive-map-section';
 import { VirtualToursSection } from '@/components/virtual-tours-section';
 import { MortgageCalculatorSection } from '@/components/mortgage-calculator-section';
@@ -9,116 +9,126 @@ import { ContactFormSection } from '@/components/contact-form-section';
 import { GalleryRoom } from '@/components/gallery-room';
 import type { Property } from '@/types/property';
 
-// Placeholder data for properties
+// Placeholder data for properties - Updated for Nigerian context
 const sampleProperties: Property[] = [
   {
     id: '1',
-    address: '123 Dream Lane, Imagination City',
-    price: 500000,
-    bedrooms: 3,
-    bathrooms: 2,
-    area: 1800,
-    type: 'House',
+    address: '15, Adeola Odeku Street',
+    city: 'Victoria Island',
+    state: 'Lagos',
+    price: 1200000, // Price in USD (base currency)
+    bedrooms: 5,
+    bathrooms: 6,
+    area: 600, // sqm
+    type: 'Detached Duplex',
     images: [
-      'https://picsum.photos/seed/prop1img1/800/600',
-      'https://picsum.photos/seed/prop1img2/800/600',
-      'https://picsum.photos/seed/prop1img3/800/600',
+      'https://picsum.photos/seed/lagosprop1img1/800/600',
+      'https://picsum.photos/seed/lagosprop1img2/800/600',
+      'https://picsum.photos/seed/lagosprop1img3/800/600',
     ],
-    latitude: 34.0522,
-    longitude: -118.2437,
+    latitude: 6.4315,
+    longitude: 3.4167,
     virtualTourUrl: 'https://your-virtual-tour-provider.com/tour/1',
     description:
-      'A beautiful family home in a quiet neighborhood. Features a large backyard and modern kitchen.',
+      'Luxurious 5-bedroom detached duplex in the heart of Victoria Island. Features a swimming pool, BQ, and ample parking space.',
     videos: ['https://www.youtube.com/embed/dQw4w9WgXcQ'], // Example video
     '3dAnimationUrl': 'https://your-3d-provider.com/model/1', // Example 3D model URL
     galleryImages: [ // Add gallery images for Gallery Room
       { id: 'g1', src: 'https://picsum.photos/seed/gallery1a/800/600', alt: 'Living Room' },
       { id: 'g2', src: 'https://picsum.photos/seed/gallery1b/800/600', alt: 'Kitchen' },
-      { id: 'g3', src: 'https://picsum.photos/seed/gallery1c/800/600', alt: 'Bedroom 1' },
-      { id: 'g4', src: 'https://picsum.photos/seed/gallery1d/800/600', alt: 'Backyard' },
+      { id: 'g3', src: 'https://picsum.photos/seed/gallery1c/800/600', alt: 'Master Bedroom' },
+      { id: 'g4', src: 'https://picsum.photos/seed/gallery1d/800/600', alt: 'Swimming Pool' },
     ],
+    isFeatured: true,
+    amenities: ['Swimming Pool', "Boys' Quarters", '24/7 Security', 'Gym'],
   },
   {
     id: '2',
-    address: '456 Opportunity Ave, Creative Corner',
-    price: 750000,
+    address: 'Plot 10, Wuse 2',
+    city: 'Abuja',
+    state: 'FCT',
+    price: 850000, // Price in USD
     bedrooms: 4,
-    bathrooms: 3,
-    area: 2500,
-    type: 'Condo',
+    bathrooms: 4,
+    area: 450, // sqm
+    type: 'Terraced House',
     images: [
-      'https://picsum.photos/seed/prop2img1/800/600',
-      'https://picsum.photos/seed/prop2img2/800/600',
+      'https://picsum.photos/seed/abjprop2img1/800/600',
+      'https://picsum.photos/seed/abjprop2img2/800/600',
     ],
-    latitude: 34.055,
-    longitude: -118.25,
+    latitude: 9.0765, // Approx Abuja coordinates
+    longitude: 7.4965, // Approx Abuja coordinates
     virtualTourUrl: 'https://your-virtual-tour-provider.com/tour/2',
     description:
-      'Luxurious condo with stunning city views. Includes access to gym and pool.',
+      'Modern 4-bedroom terrace house in a serene estate in Wuse 2. Comes with fitted kitchen and ensuite rooms.',
     videos: [],
     '3dAnimationUrl': undefined,
     galleryImages: [
-      { id: 'g5', src: 'https://picsum.photos/seed/gallery2a/800/600', alt: 'View from Balcony' },
-      { id: 'g6', src: 'https://picsum.photos/seed/gallery2b/800/600', alt: 'Master Bedroom' },
-      { id: 'g7', src: 'https://picsum.photos/seed/gallery2c/800/600', alt: 'Building Exterior' },
+      { id: 'g5', src: 'https://picsum.photos/seed/gallery2a/800/600', alt: 'Exterior View' },
+      { id: 'g6', src: 'https://picsum.photos/seed/gallery2b/800/600', alt: 'Bedroom' },
+      { id: 'g7', src: 'https://picsum.photos/seed/gallery2c/800/600', alt: 'Fitted Kitchen' },
     ],
+     isFeatured: false,
+    amenities: ['Gated Estate', 'Fitted Kitchen', 'Interlocked Compound'],
   },
   {
     id: '3',
-    address: '789 Serenity St, Peaceful Place',
-    price: 320000,
-    bedrooms: 2,
-    bathrooms: 1,
-    area: 1200,
-    type: 'Townhouse',
-    images: ['https://picsum.photos/seed/prop3img1/800/600'],
-    latitude: 34.048,
-    longitude: -118.24,
+    address: '21, Admiralty Way',
+    city: 'Lekki Phase 1',
+     state: 'Lagos',
+    price: 500000, // Price in USD
+    bedrooms: 3,
+    bathrooms: 3,
+    area: 180, // sqm
+    type: 'Flat/Apartment',
+    images: ['https://picsum.photos/seed/lekprop3img1/800/600'],
+    latitude: 6.4477, // Approx Lekki Phase 1 coordinates
+    longitude: 3.4702, // Approx Lekki Phase 1 coordinates
     virtualTourUrl: undefined,
     description:
-      'Cozy townhouse perfect for first-time buyers. Close to parks and schools.',
+      'Well-maintained 3-bedroom flat in a serviced apartment block in Lekki Phase 1. Close to shops and restaurants.',
     videos: [],
     '3dAnimationUrl': undefined,
      galleryImages: [
-      { id: 'g8', src: 'https://picsum.photos/seed/gallery3a/800/600', alt: 'Cozy Living Area' },
-      { id: 'g9', src: 'https://picsum.photos/seed/gallery3b/800/600', alt: 'Small Kitchen' },
+      { id: 'g8', src: 'https://picsum.photos/seed/gallery3a/800/600', alt: 'Living Area' },
+      { id: 'g9', src: 'https://picsum.photos/seed/gallery3b/800/600', alt: 'Kitchenette' },
     ],
+     isFeatured: false,
+     amenities: ['Serviced Apartment', 'Standby Generator', 'Water Treatment'],
   },
 ];
 
-// Sample reviews data
+// Sample reviews data - Can be localized or made more specific
 const sampleReviews = [
   {
     id: 'r1',
-    name: 'Alice B.',
+    name: 'Adekunle B.',
     rating: 5,
     review:
-      'EstateFindr helped us find our perfect home! The process was smooth and the recommendations were spot on.',
-    imageUrl: 'https://picsum.photos/seed/rev1/100/100',
+      'Estate Agency helped us find our perfect home in Lagos! The process was smooth and their agents were very professional.',
+    imageUrl: 'https://picsum.photos/seed/rev1ng/100/100',
   },
   {
     id: 'r2',
-    name: 'Bob C.',
+    name: 'Chioma C.',
     rating: 4,
     review:
-      'Great platform with lots of useful features. The mortgage calculator was very helpful.',
-    imageUrl: 'https://picsum.photos/seed/rev2/100/100',
+      'Great platform with lots of useful features. The mortgage calculator helped us plan our finances for our Abuja property.',
+    imageUrl: 'https://picsum.photos/seed/rev2ng/100/100',
   },
   {
     id: 'r3',
-    name: 'Charlie D.',
+    name: 'Musa D.',
     rating: 5,
     review:
-      'The virtual tours are amazing! It felt like I was really there. Highly recommend EstateFindr.',
-    imageUrl: 'https://picsum.photos/seed/rev3/100/100',
+      'The virtual tours are amazing! It felt like I was really there exploring the house in Lekki. Highly recommend Estate Agency.',
+    imageUrl: 'https://picsum.photos/seed/rev3ng/100/100',
   },
 ];
 
-// These IDs correspond to potential sections if needed for internal linking or styling,
-// even though the main nav links to pages now.
+// Section IDs remain for internal linking if needed
 const SECTION_IDS = {
   listings: 'home-listings',
-  // recommendations: 'home-recommendations', // Removed
   gallery: 'home-gallery',
   map: 'home-map',
   tours: 'home-tours',
@@ -139,11 +149,6 @@ export default function Home() {
       </section>
 
       {/* Property Recommendations section removed */}
-      {/*
-      <section id={SECTION_IDS.recommendations}>
-        <PropertyRecommendations />
-      </section>
-      */}
 
        {/* Conditionally render Gallery Room if there are properties with gallery images */}
       {sampleProperties.some(p => p.galleryImages && p.galleryImages.length > 0) && (

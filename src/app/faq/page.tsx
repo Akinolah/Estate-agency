@@ -1,3 +1,4 @@
+
 // src/app/faq/page.tsx
 import {
   Accordion,
@@ -8,34 +9,39 @@ import {
 
 const faqItems = [
   {
-    question: "How do I start searching for properties?",
-    answer: "You can start by using the search bar on the Listings page, applying filters for location, price, property type, bedrooms, and bathrooms. You can also explore properties visually using the interactive map.",
+    question: "How do I start searching for properties in Nigeria?",
+    answer: "You can start by using the search bar on the Listings page, applying filters for state, city, price, property type, bedrooms, and bathrooms. You can also explore properties visually using the interactive map.",
     value: "item-1",
   },
-  {
-    question: "What are AI recommendations?",
-    answer: "Our AI analyzes your search history, saved properties, and stated preferences to suggest listings you might like but haven't discovered yet. You can generate these on the homepage or Services page.",
-    value: "item-2",
+   {
+    question: "What currencies are supported?",
+    answer: "Property prices can be viewed in US Dollars (USD), Nigerian Naira (NGN), and British Pounds (GBP). Use the currency switcher in the header to change your preference. Please note that displayed exchange rates are placeholders and may not reflect real-time market rates.",
+    value: "item-7", // New value
   },
   {
     question: "How does the mortgage calculator work?",
-    answer: "The mortgage calculator provides an estimate of your monthly principal and interest payment based on the loan amount, interest rate, and loan term you provide. It does not include taxes, insurance, or HOA fees.",
+    answer: "The mortgage calculator provides an estimate of your monthly payment based on the property price, down payment, interest rate, and loan term you provide. It can also factor in estimated property taxes and insurance. Remember, this is an estimate and not a formal loan offer.",
     value: "item-3",
   },
   {
     question: "Can I schedule a viewing through the website?",
-    answer: "Currently, the best way to schedule a viewing is to use the contact form on the Contact page or the specific property listing page (if available) to connect with one of our agents who will assist you.",
+    answer: "Yes, the best way to schedule a viewing is to use the contact form on the Contact page or the specific property listing page. You can also call or WhatsApp us using the details provided. Our agents will assist you.",
     value: "item-4",
   },
    {
     question: "What services do you offer for sellers?",
-    answer: "We offer comprehensive seller representation, including market analysis, property valuation, professional marketing (photos, virtual tours), listing management, showing coordination, negotiation, and closing assistance. Visit our Services page for more details.",
+    answer: "We offer comprehensive seller representation, including market analysis, property valuation, professional marketing (photos, virtual tours), listing management across various platforms, viewing coordination, negotiation, and closing assistance within the Nigerian context.",
     value: "item-5",
   },
    {
     question: "Is my personal information safe?",
-    answer: "Yes, we take data privacy seriously. Please review our Privacy Policy for detailed information on how we collect, use, and protect your data.",
+    answer: "Yes, we take data privacy seriously and comply with relevant data protection regulations. Please review our Privacy Policy for detailed information on how we collect, use, and protect your data.",
     value: "item-6",
+  },
+    {
+    question: "Do you operate outside Lagos and Abuja?",
+    answer: "While our primary focus is currently on Lagos and Abuja, we have networks and listings in other major Nigerian cities. Please use the search filters or contact us directly for inquiries about properties in other locations.",
+    value: "item-8", // New value
   },
 ];
 
@@ -46,7 +52,7 @@ export default function FaqPage() {
       <section id="faq-section" className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Frequently Asked Questions</h1>
         <p className="text-lg text-muted-foreground">
-          Find answers to common questions about using EstateFindr and our services.
+          Find answers to common questions about using Estate Agency and our services in Nigeria.
         </p>
       </section>
 
@@ -74,3 +80,4 @@ export default function FaqPage() {
     </div>
   );
 }
+

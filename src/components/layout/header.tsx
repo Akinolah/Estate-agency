@@ -7,6 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Home, ChevronDown } from 'lucide-react'; // Added ChevronDown for potential dropdowns
 import { cn } from '@/lib/utils';
 import { useState } from 'react'; // For potential dropdown state management
+import { CurrencySwitcher } from '@/components/currency-switcher'; // Import CurrencySwitcher
 
 export function Header() {
   // Updated navigation items for page links
@@ -29,7 +30,7 @@ export function Header() {
              <Link href="/" className="flex items-center space-x-2 group">
                  <Home className="h-7 w-7 text-primary transition-transform duration-300 group-hover:scale-110" />
                 <span className="font-bold text-lg sm:inline-block group-hover:text-primary transition-colors">
-                  EstateFindr
+                  Estate Agency
                  </span>
             </Link>
         </div>
@@ -56,8 +57,9 @@ export function Header() {
              </div>
         </nav>
 
-        {/* CTA Button - Pushed to the right */}
-        <div className="hidden flex-[0.15] items-center justify-end md:flex"> {/* Approx 15% width */}
+         {/* Right Section: Currency Switcher & CTA Button */}
+        <div className="hidden flex-[0.15] items-center justify-end space-x-3 md:flex"> {/* Approx 15% width */}
+           <CurrencySwitcher />
            <Button
               size="sm"
               asChild
@@ -71,7 +73,8 @@ export function Header() {
         </div>
 
         {/* Mobile Menu Trigger (Right) */}
-        <div className="flex items-center md:hidden ml-auto">
+        <div className="flex items-center md:hidden ml-auto space-x-2">
+             <CurrencySwitcher /> {/* Add Currency Switcher for mobile */}
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
@@ -85,7 +88,7 @@ export function Header() {
                  <div className="p-4 border-b mb-4 flex justify-between items-center">
                     <Link href="/" className="flex items-center space-x-2">
                       <Home className="h-6 w-6 text-primary" />
-                      <span className="font-bold">EstateFindr</span>
+                      <span className="font-bold">Estate Agency</span>
                     </Link>
                      {/* Optional: Close button inside content */}
                      {/* <SheetClose asChild> <Button variant="ghost" size="icon"> <X className="h-5 w-5" /> </Button> </SheetClose> */}

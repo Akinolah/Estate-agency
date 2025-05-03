@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { BedDouble, Bath, Square, MapPin, Video, Users, ThumbsUp, Orbit, Phone, MessageSquare } from 'lucide-react'; // Added Phone, MessageSquare
+import { BedDouble, Bath, Square, MapPin, Video, Users, ThumbsUp, Orbit, Phone, MessageSquare, Home } from 'lucide-react'; // Added Home
 import type { Property } from '@/types/property';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
@@ -16,7 +16,8 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel"
+} from "@/components/ui/carousel";
+import { useCurrency } from '@/hooks/useCurrency'; // Import the currency hook
 
 
 interface PropertyCardProps {
@@ -25,12 +26,15 @@ interface PropertyCardProps {
 
 // Example contact info - ideally this comes from property data or agent info
 const agentContact = {
-    phone: '(123) 456-7890',
-    whatsappNumber: '+11234567890', // Use international format
+    phone: '+2348012345678', // Example Nigerian phone format
+    whatsappNumber: '+2348012345678', // Use international format
 }
 
 export function PropertyCard({ property }: PropertyCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const { formatPrice, selectedCurrency } = useCurrency(); // Use the currency hook
+
+  const formattedPrice = formatPrice(property.price);
 
   return (
     <Card
@@ -93,11 +97,12 @@ export function PropertyCard({ property }: PropertyCardProps) {
       </CardHeader>
        <CardContent className="p-4 flex flex-col flex-grow"> {/* Added flex flex-col flex-grow */}
         <CardTitle className="text-xl font-semibold mb-1 truncate">
-          ${property.price.toLocaleString()}
+           {formattedPrice} {/* Display formatted price */}
         </CardTitle>
         <CardDescription className="text-sm text-muted-foreground mb-3 flex items-center">
            <MapPin className="w-4 h-4 mr-1 shrink-0" />
-           <span className="truncate">{property.address}</span>
+           {/* Construct Nigerian address format */}
+           <span className="truncate">{`${property.address}, ${property.city}, ${property.state}`}</span>
         </CardDescription>
         <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm mb-4">
           <div className="flex items-center">
@@ -111,7 +116,8 @@ export function PropertyCard({ property }: PropertyCardProps) {
           {property.area && (
             <div className="flex items-center">
               <Square className="w-4 h-4 mr-1 text-primary" />
-              <span>{property.area.toLocaleString()} sqft</span>
+              {/* Assume area is in square meters if common in Nigeria, or add unit */}
+              <span>{property.area.toLocaleString()} sqm</span>
             </div>
           )}
         </div>
@@ -142,7 +148,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
              )}
              {/* Contact Buttons */}
              <Button variant="outline" size="sm" asChild>
-                  <a href={`tel:${agentContact.phone.replace(/\D/g, '')}`} className="flex items-center">
+                  <a href={`tel:${agentContact.phone}`} className="flex items-center">
                     <Phone className="mr-1 h-4 w-4" /> Call
                  </a>
              </Button>

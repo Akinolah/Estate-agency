@@ -1,57 +1,80 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
-import { Badge } from '@/components/ui/badge';
-import { BedDouble, Bath, Square, Home } from 'lucide-react'; // Added Home import
 import type { Property } from '@/types/property';
 import { PropertyCard } from './property-card';
+import { useCurrency } from '@/hooks/useCurrency'; // Import currency hook
 
 interface PropertyListingsProps {
   initialProperties: Property[];
 }
 
+// Example Nigerian states and common property types
+const nigerianStates = ['All', 'Lagos', 'FCT', 'Rivers', 'Ogun', 'Oyo', 'Kano', 'Kaduna']; // Add more as needed
+const propertyTypesNG = ['All', 'Detached Duplex', 'Semi-Detached Duplex', 'Terraced House', 'Flat/Apartment', 'Bungalow', 'Maisonette', 'Penthouse', 'Land'];
+
 export function PropertyListings({ initialProperties }: PropertyListingsProps) {
   const [properties, setProperties] = useState<Property[]>(initialProperties);
-  const [locationFilter, setLocationFilter] = useState('');
-  const [priceRangeFilter, setPriceRangeFilter] = useState<[number, number]>([0, 1000000]);
+  const [locationFilter, setLocationFilter] = useState(''); // Can filter by address, city, state, lga
+  const [stateFilter, setStateFilter] = useState('All');
+  const [priceRangeFilter, setPriceRangeFilter] = useState<[number, number]>([0, 2000000]); // Default price range in USD (base currency)
   const [typeFilter, setTypeFilter] = useState('All');
   const [bedroomsFilter, setBedroomsFilter] = useState('All');
   const [bathroomsFilter, setBathroomsFilter] = useState('All');
   const [sortBy, setSortBy] = useState('price-asc');
 
-  const propertyTypes = useMemo(() => ['All', ...new Set(initialProperties.map(p => p.type))], [initialProperties]);
-  const bedroomOptions = useMemo(() => ['All', ...Array.from(new Set(initialProperties.map(p => p.bedrooms.toString()))).sort((a,b) => parseInt(a) - parseInt(b))], [initialProperties]);
-  const bathroomOptions = useMemo(() => ['All', ...Array.from(new Set(initialProperties.map(p => p.bathrooms.toString()))).sort((a,b) => parseInt(a) - parseInt(b))], [initialProperties]);
+  const { formatPrice, selectedCurrency } = useCurrency(); // Use currency hook
 
-  const maxPrice = useMemo(() => Math.max(...initialProperties.map(p => p.price), 1000000), [initialProperties]);
+  // Derive options from initial properties or use predefined lists
+  const bedroomOptions = useMemo(() => ['All', ...Array.from(new Set(initialProperties.map(p => p.bedrooms.toString()))).sort((a, b) => parseInt(a) - parseInt(b))], [initialProperties]);
+  const bathroomOptions = useMemo(() => ['All', ...Array.from(new Set(initialProperties.map(p => p.bathrooms.toString()))).sort((a, b) => parseInt(a) - parseInt(b))], [initialProperties]);
+
+  const maxPrice = useMemo(() => Math.max(...initialProperties.map(p => p.price), 2000000), [initialProperties]);
 
 
   const filteredProperties = useMemo(() => {
     let filtered = properties;
 
+    // Location filter (checks address, city, lga)
     if (locationFilter) {
-      filtered = filtered.filter(p => p.address.toLowerCase().includes(locationFilter.toLowerCase()));
+      const lowerLocation = locationFilter.toLowerCase();
+      filtered = filtered.filter(p =>
+        p.address.toLowerCase().includes(lowerLocation) ||
+        p.city.toLowerCase().includes(lowerLocation) ||
+        (p.lga && p.lga.toLowerCase().includes(lowerLocation))
+      );
     }
 
+     // State filter
+    if (stateFilter !== 'All') {
+      filtered = filtered.filter(p => p.state === stateFilter);
+    }
+
+    // Price range filter (applied on the base currency price)
     filtered = filtered.filter(p => p.price >= priceRangeFilter[0] && p.price <= priceRangeFilter[1]);
 
+    // Type filter
     if (typeFilter !== 'All') {
       filtered = filtered.filter(p => p.type === typeFilter);
     }
 
+    // Bedrooms filter
     if (bedroomsFilter !== 'All') {
-      filtered = filtered.filter(p => p.bedrooms === parseInt(bedroomsFilter));
+        const minBeds = parseInt(bedroomsFilter);
+         filtered = filtered.filter(p => p.bedrooms >= minBeds); // Show properties with this many beds or more
     }
 
+    // Bathrooms filter
      if (bathroomsFilter !== 'All') {
-      filtered = filtered.filter(p => p.bathrooms === parseInt(bathroomsFilter));
+        const minBaths = parseInt(bathroomsFilter);
+        filtered = filtered.filter(p => p.bathrooms >= minBaths); // Show properties with this many baths or more
     }
 
     // Sorting
@@ -74,11 +97,18 @@ export function PropertyListings({ initialProperties }: PropertyListingsProps) {
       case 'area-desc':
          filtered.sort((a, b) => (b.area ?? 0) - (a.area ?? 0));
         break;
+       // Add sorting by date added (if available)
+       // case 'date-newest':
+       //   filtered.sort((a, b) => (b.dateAdded ?? 0) - (a.dateAdded ?? 0));
+       //   break;
+       // case 'date-oldest':
+       //   filtered.sort((a, b) => (a.dateAdded ?? 0) - (b.dateAdded ?? 0));
+       //   break;
     }
 
 
     return filtered;
-  }, [properties, locationFilter, priceRangeFilter, typeFilter, bedroomsFilter, bathroomsFilter, sortBy]);
+  }, [properties, locationFilter, stateFilter, priceRangeFilter, typeFilter, bedroomsFilter, bathroomsFilter, sortBy]);
 
   return (
     // Container div without the section ID
@@ -91,31 +121,47 @@ export function PropertyListings({ initialProperties }: PropertyListingsProps) {
           <CardTitle>Filter & Sort Properties</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {/* Location Filter */}
+          {/* Location Keyword Filter */}
           <div className="space-y-1">
-            <Label htmlFor="location">Location</Label>
+            <Label htmlFor="location">Keyword (Address, City, LGA)</Label>
             <Input
               id="location"
-              placeholder="Enter city, address, zip..."
+              placeholder="e.g., Lekki, Wuse 2, Plot 10..."
               value={locationFilter}
               onChange={(e) => setLocationFilter(e.target.value)}
             />
           </div>
 
+           {/* State Filter */}
+          <div className="space-y-1">
+            <Label htmlFor="state">State</Label>
+            <Select value={stateFilter} onValueChange={setStateFilter}>
+              <SelectTrigger id="state">
+                <SelectValue placeholder="Select State" />
+              </SelectTrigger>
+              <SelectContent>
+                {nigerianStates.map(state => (
+                  <SelectItem key={state} value={state}>{state}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+
           {/* Price Range Filter */}
            <div className="space-y-1 col-span-1 sm:col-span-2 lg:col-span-1">
-            <Label>Price Range</Label>
+            <Label>Price Range ({selectedCurrency})</Label>
              <Slider
               min={0}
-              max={maxPrice}
-              step={10000}
-              value={priceRangeFilter}
+              max={maxPrice} // Max price in base currency (USD)
+              step={10000} // Step in base currency
+              value={priceRangeFilter} // Value in base currency
               onValueChange={(value) => setPriceRangeFilter(value as [number, number])}
               className="py-2"
             />
             <div className="flex justify-between text-sm text-muted-foreground">
-              <span>${priceRangeFilter[0].toLocaleString()}</span>
-              <span>${priceRangeFilter[1].toLocaleString()}</span>
+              <span>{formatPrice(priceRangeFilter[0])}</span>
+              <span>{formatPrice(priceRangeFilter[1])}</span>
             </div>
           </div>
 
@@ -127,7 +173,7 @@ export function PropertyListings({ initialProperties }: PropertyListingsProps) {
                 <SelectValue placeholder="Select Type" />
               </SelectTrigger>
               <SelectContent>
-                {propertyTypes.map(type => (
+                {propertyTypesNG.map(type => (
                   <SelectItem key={type} value={type}>{type}</SelectItem>
                 ))}
               </SelectContent>
@@ -136,7 +182,7 @@ export function PropertyListings({ initialProperties }: PropertyListingsProps) {
 
           {/* Bedrooms Filter */}
           <div className="space-y-1">
-            <Label htmlFor="bedrooms">Bedrooms</Label>
+            <Label htmlFor="bedrooms">Min. Bedrooms</Label>
              <Select value={bedroomsFilter} onValueChange={setBedroomsFilter}>
               <SelectTrigger id="bedrooms">
                 <SelectValue placeholder="Any" />
@@ -151,7 +197,7 @@ export function PropertyListings({ initialProperties }: PropertyListingsProps) {
 
           {/* Bathrooms Filter */}
           <div className="space-y-1">
-            <Label htmlFor="bathrooms">Bathrooms</Label>
+            <Label htmlFor="bathrooms">Min. Bathrooms</Label>
              <Select value={bathroomsFilter} onValueChange={setBathroomsFilter}>
               <SelectTrigger id="bathrooms">
                 <SelectValue placeholder="Any" />
@@ -174,18 +220,22 @@ export function PropertyListings({ initialProperties }: PropertyListingsProps) {
               <SelectContent>
                 <SelectItem value="price-asc">Price: Low to High</SelectItem>
                 <SelectItem value="price-desc">Price: High to Low</SelectItem>
-                <SelectItem value="bedrooms-asc">Bedrooms: Low to High</SelectItem>
                 <SelectItem value="bedrooms-desc">Bedrooms: High to Low</SelectItem>
-                <SelectItem value="area-asc">Area: Low to High</SelectItem>
+                 <SelectItem value="bedrooms-asc">Bedrooms: Low to High</SelectItem>
                 <SelectItem value="area-desc">Area: High to Low</SelectItem>
+                <SelectItem value="area-asc">Area: Low to High</SelectItem>
+                 {/* Add Date sorting options if available */}
+                 {/* <SelectItem value="date-newest">Date Added: Newest</SelectItem> */}
+                 {/* <SelectItem value="date-oldest">Date Added: Oldest</SelectItem> */}
               </SelectContent>
             </Select>
           </div>
 
         </CardContent>
          <CardFooter>
-          <Button onClick={() => { /* Optionally clear filters */
+          <Button onClick={() => {
             setLocationFilter('');
+            setStateFilter('All');
             setPriceRangeFilter([0, maxPrice]);
             setTypeFilter('All');
             setBedroomsFilter('All');

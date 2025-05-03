@@ -1,3 +1,4 @@
+
 // src/app/contact/page.tsx
 import { ContactFormSection } from '@/components/contact-form-section';
 import { InteractiveMapSection } from '@/components/interactive-map-section'; // Reuse map to show location
@@ -6,18 +7,20 @@ import { Phone, Mail, MapPin, Clock, MessageSquare, Twitter, Facebook, Instagram
 import type { Property } from '@/types/property'; // Import Property type if needed for map
 import Link from 'next/link';
 
-// Define office location(s) - adjust coordinates and details as needed
+// Define office location(s) - updated for Nigeria
 const officeLocation: Property = {
   id: 'office-location',
-  address: '456 Business Ave, Suite 100, Metropolis, CA 90210', // Added Zip
+  address: '10 Saka Tinubu Street', // Example address
+  city: 'Victoria Island',
+  state: 'Lagos',
   price: 0, // Not applicable
   bedrooms: 0, // Not applicable
   bathrooms: 0, // Not applicable
   type: 'Office',
   images: [], // No images needed for map marker usually
-  latitude: 34.052235, // Example: Los Angeles City Hall latitude
-  longitude: -118.243683, // Example: Los Angeles City Hall longitude
-  description: 'Our Main Office Location',
+  latitude: 6.4297, // Example: VI latitude
+  longitude: 3.4239, // Example: VI longitude
+  description: 'Our Main Office Location (Lagos)',
    // Add other required fields from Property type with appropriate defaults/values
   area: undefined,
   virtualTourUrl: undefined,
@@ -26,16 +29,16 @@ const officeLocation: Property = {
   galleryImages: [],
 };
 
-// Define company details
+// Define company details - updated for Nigeria
 const companyDetails = {
-    phone: '(123) 456-7890',
-    email: 'info@estatefindr.com',
-    whatsappNumber: '+11234567890', // Use international format for WhatsApp links
-    businessHours: 'Mon - Fri: 9:00 AM - 6:00 PM',
+    phone: '+234 801 234 5678', // Example NG number
+    email: 'info@estateagency.ng', // Example NG domain
+    whatsappNumber: '+2348012345678', // Use international format for WhatsApp links
+    businessHours: 'Mon - Fri: 9:00 AM - 5:00 PM (WAT)', // Specify timezone
     socials: {
-        twitter: 'https://x.com/estatefindr', // Replace with actual links
-        facebook: 'https://facebook.com/estatefindr',
-        instagram: 'https://instagram.com/estatefindr',
+        twitter: 'https://x.com/estateagencyng', // Replace with actual links
+        facebook: 'https://facebook.com/estateagencyng',
+        instagram: 'https://instagram.com/estateagencyng',
     }
 }
 
@@ -46,7 +49,7 @@ export default function ContactPage() {
       <section className="text-center">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          We're here to help! Reach out with any questions or inquiries, and our team will get back to you shortly.
+          We're here to help! Reach out with any questions or inquiries about properties in Nigeria, and our team will get back to you shortly.
         </p>
       </section>
 
@@ -68,9 +71,9 @@ export default function ContactPage() {
                 <div className="flex items-start">
                     <MapPin className="w-5 h-5 mr-3 text-primary flex-shrink-0 mt-1" />
                     <div>
-                        <p className="font-medium text-foreground">Address:</p>
-                        <p>{officeLocation.address}</p>
-                        {/* Add more address lines if needed */}
+                        <p className="font-medium text-foreground">Lagos Office:</p>
+                        <p>{officeLocation.address}, {officeLocation.city}, {officeLocation.state}</p>
+                        {/* Add more address lines or other office locations if needed */}
                     </div>
                 </div>
                  {/* Phone */}
@@ -78,7 +81,7 @@ export default function ContactPage() {
                     <Phone className="w-5 h-5 mr-3 text-primary flex-shrink-0" />
                      <div>
                         <p className="font-medium text-foreground">Phone:</p>
-                        <a href={`tel:${companyDetails.phone.replace(/\D/g, '')}`} className="hover:text-primary transition-colors">{companyDetails.phone}</a>
+                        <a href={`tel:${companyDetails.phone.replace(/\s/g, '')}`} className="hover:text-primary transition-colors">{companyDetails.phone}</a>
                     </div>
                  </div>
                  {/* Email */}

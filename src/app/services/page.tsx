@@ -1,44 +1,48 @@
+
 // src/app/services/page.tsx
 import { CoreServicesGrid } from '@/components/services-page-components/core-services-grid';
 import { TechShowcase } from '@/components/services-page-components/tech-showcase';
 import type { Property } from '@/types/property';
-import { Home } from 'lucide-react'; // Import Home icon
 
-// Sample properties needed for Map, Tours, Recommendations, Gallery
+// Sample properties needed for Map, Tours, Gallery - Nigerian context
 const sampleProperties: Property[] = [
    {
     id: 's1',
-    address: '1 Service Ave, Helping Hand City',
-    price: 600000,
+    address: '1 Service Avenue',
+    city: 'Ikeja',
+    state: 'Lagos',
+    price: 600000, // Base price USD
     bedrooms: 3,
     bathrooms: 2,
-    area: 1900,
-    type: 'House',
-    images: ['https://picsum.photos/seed/servprop1/800/600'],
-    latitude: 34.06,
-    longitude: -118.26,
-    description: 'Example property for service demonstration.',
+    area: 190, // sqm
+    type: 'Semi-Detached Duplex',
+    images: ['https://picsum.photos/seed/servprop1ng/800/600'],
+    latitude: 6.6018, // Approx Ikeja
+    longitude: 3.3515, // Approx Ikeja
+    description: 'Example property for service demonstration in Ikeja.',
     virtualTourUrl: 'https://your-virtual-tour-provider.com/tour/s1',
      videos: [],
      '3dAnimationUrl': undefined,
-     galleryImages: [{ id: 'sg1', src: 'https://picsum.photos/seed/servgal1/800/600', alt: 'Service Demo Image' }],
+     galleryImages: [{ id: 'sg1', src: 'https://picsum.photos/seed/servgal1ng/800/600', alt: 'Service Demo Image Ikeja' }],
   },
    {
     id: 's2',
-    address: '2 Support St, Client Corner',
-    price: 450000,
+    address: '2 Support Street, Garki',
+    city: 'Abuja',
+    state: 'FCT',
+    price: 450000, // Base price USD
     bedrooms: 2,
     bathrooms: 2,
-    area: 1500,
-    type: 'Condo',
-    images: ['https://picsum.photos/seed/servprop2/800/600'],
-    latitude: 34.07,
-    longitude: -118.27,
-    description: 'Another property showcasing our services.',
+    area: 150, // sqm
+    type: 'Flat/Apartment',
+    images: ['https://picsum.photos/seed/servprop2ng/800/600'],
+    latitude: 9.057, // Approx Garki
+    longitude: 7.489, // Approx Garki
+    description: 'Another property showcasing our services in Abuja.',
     virtualTourUrl: undefined,
      videos: [],
      '3dAnimationUrl': undefined,
-      galleryImages: [{ id: 'sg2', src: 'https://picsum.photos/seed/servgal2/800/600', alt: 'Client Focused Room' }],
+      galleryImages: [{ id: 'sg2', src: 'https://picsum.photos/seed/servgal2ng/800/600', alt: 'Client Focused Room Abuja' }],
   },
 ];
 
@@ -49,10 +53,10 @@ export default function ServicesPage() {
 
        {/* Services Overview Section */}
         <section id="services-overview" className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Comprehensive Services</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Comprehensive Real Estate Services</h1>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                 EstateFindr offers a full suite of services to support you whether you're buying, selling,
-                 or just exploring the real estate market.
+                 Estate Agency offers a full suite of services to support you whether you're buying, selling,
+                 or just exploring the real estate market in Nigeria.
              </p>
         </section>
 
@@ -65,3 +69,4 @@ export default function ServicesPage() {
     </div>
   );
 }
+
