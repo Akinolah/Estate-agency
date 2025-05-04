@@ -148,8 +148,6 @@ export default function Home() {
         <PropertyListings initialProperties={sampleProperties} />
       </section>
 
-      {/* Property Recommendations section removed */}
-
        {/* Conditionally render Gallery Room if there are properties with gallery images */}
       {sampleProperties.some(p => p.galleryImages && p.galleryImages.length > 0) && (
         <section id={SECTION_IDS.gallery}>
