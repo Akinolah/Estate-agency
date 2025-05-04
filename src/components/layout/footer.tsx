@@ -1,6 +1,19 @@
 import Link from 'next/link';
-import { Home, Twitter, Facebook, Instagram, Linkedin, Youtube } from 'lucide-react'; // Added social media icons
+import { Home, Facebook, Instagram, Linkedin, Youtube } from 'lucide-react'; // Removed Twitter
 import { BackToTopButton } from '../back-to-top'; // Assuming back-to-top is separate
+
+// Inline SVG for X logo (formerly Twitter)
+const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor" // Use currentColor to inherit color
+        {...props}
+    >
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+);
+
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -47,11 +60,11 @@ export function Footer() {
   ];
 
   const socialLinks = [
-    { href: 'https://x.com/estateagencyng', label: 'Twitter', icon: Twitter }, // Updated placeholder link
-    { href: 'https://facebook.com/estateagencyng', label: 'Facebook', icon: Facebook }, // Updated placeholder link
-    { href: 'https://instagram.com/estateagencyng', label: 'Instagram', icon: Instagram }, // Updated placeholder link
-    { href: 'https://linkedin.com/company/estateagencyng', label: 'LinkedIn', icon: Linkedin }, // Updated placeholder link
-     { href: 'https://youtube.com/@estateagencyng', label: 'YouTube', icon: Youtube }, // Updated placeholder link
+    { href: 'https://x.com/estateagencyng', label: 'X (Twitter)', icon: XIcon, hoverColor: 'hover:text-[#000000] dark:hover:text-[#ffffff]' }, // X uses black/white
+    { href: 'https://facebook.com/estateagencyng', label: 'Facebook', icon: Facebook, hoverColor: 'hover:text-[#1877F2]' }, // Facebook blue
+    { href: 'https://instagram.com/estateagencyng', label: 'Instagram', icon: Instagram, hoverColor: 'hover:text-[#E1306C]' }, // Instagram pink/gradient (using pink)
+    { href: 'https://linkedin.com/company/estateagencyng', label: 'LinkedIn', icon: Linkedin, hoverColor: 'hover:text-[#0A66C2]' }, // LinkedIn blue
+     { href: 'https://youtube.com/@estateagencyng', label: 'YouTube', icon: Youtube, hoverColor: 'hover:text-[#FF0000]' }, // YouTube red
   ];
 
 
@@ -116,7 +129,7 @@ export function Footer() {
                    href={social.href}
                    target="_blank"
                    rel="noopener noreferrer"
-                   className="text-muted-foreground hover:text-primary transition-colors"
+                   className={`text-muted-foreground ${social.hoverColor} transition-colors`} // Apply hover color class
                    aria-label={social.label}
                  >
                    <social.icon className="h-5 w-5" />
