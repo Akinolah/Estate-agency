@@ -11,11 +11,11 @@ const BASE_CURRENCY = 'USD'; // Define the base currency for internal calculatio
 // In a real app, fetch these from an API
 const exchangeRatesToBase = { // Removed type
   USD: 1,
-  NGN: 1 / 1500, // 1 NGN = 1/1500 USD (Inverse of USD -> NGN)
+  NGN: 1 / 1600, // 1 NGN = 1/1600 USD (Inverse of USD -> NGN)
   GBP: 1 / 0.80, // 1 GBP = 1/0.80 USD (Inverse of USD -> GBP)
 };
 
-// Define currency symbols and formatting options
+// Currency symbols and formatting options
 const currencyFormats = { // Removed type
   USD: { symbol: '$', locale: 'en-US' },
   NGN: { symbol: '₦', locale: 'en-NG' },

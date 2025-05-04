@@ -10,7 +10,7 @@ import { useState } from 'react'; // For potential dropdown state management
 import { CurrencySwitcher } from '@/components/currency-switcher'; // Import CurrencySwitcher
 
 export function Header() {
-  // Updated navigation items for page links
+  
   const navItems = [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
@@ -19,14 +19,13 @@ export function Header() {
     { href: '/contact', label: 'Contact' },
   ];
 
-  // Example state for dropdown - can be expanded later
   const [isServicesOpen, setIsServicesOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center"> {/* Increased height slightly */}
-        {/* Logo - Adjusted positioning with flex basis */}
-        <div className="flex-[0.15] mr-4"> {/* Approx 15% width + margin */}
+      <div className="container flex h-16 items-center">
+        {/* Logo */}
+        <div className="flex-[0.15] mr-4">
              <Link href="/" className="flex items-center space-x-2 group">
                  <Home className="h-7 w-7 text-primary transition-transform duration-300 group-hover:scale-110" />
                 <span className="font-bold text-lg sm:inline-block group-hover:text-primary transition-colors">
@@ -46,7 +45,7 @@ export function Header() {
                    className={cn(
                       "relative px-3 py-2 rounded-md transition-all duration-300 ease-out hover:bg-accent/80", // Added hover background
                       "after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 after:-translate-x-1/2", // Underline effect
-                      "hover:after:w-full" // Expand underline on hover
+                      "hover:after:w-full"
                   )}
                 >
                   {item.label}

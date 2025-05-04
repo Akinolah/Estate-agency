@@ -18,7 +18,6 @@ const XIcon = (props) => (
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // Updated footer sections to align with new pages
   const footerSections = [
     {
       title: 'Navigate',
@@ -54,30 +53,30 @@ export function Footer() {
           { href: '/about#mission-values', label: 'Our Mission' }, // Link to section in about page
           // { href: '/careers', label: 'Careers' },
           // { href: '/press', label: 'Press Kit' },
-          { href: '/contact', label: 'Partnerships' }, // Use contact page for partnerships
+          { href: '/contact', label: 'Partnerships' },
         ],
     },
   ];
 
   const socialLinks = [
-    { href: 'https://x.com/estateagencyng', label: 'X (Twitter)', icon: XIcon, hoverColor: 'hover:text-[#000000] dark:hover:text-[#ffffff]' }, // X uses black/white
-    { href: 'https://facebook.com/estateagencyng', label: 'Facebook', icon: Facebook, hoverColor: 'hover:text-[#1877F2]' }, // Facebook blue
-    { href: 'https://instagram.com/estateagencyng', label: 'Instagram', icon: Instagram, hoverColor: 'hover:text-[#E1306C]' }, // Instagram pink/gradient (using pink)
-    { href: 'https://linkedin.com/company/estateagencyng', label: 'LinkedIn', icon: Linkedin, hoverColor: 'hover:text-[#0A66C2]' }, // LinkedIn blue
-     { href: 'https://youtube.com/@estateagencyng', label: 'YouTube', icon: Youtube, hoverColor: 'hover:text-[#FF0000]' }, // YouTube red
+    { href: 'https://x.com/estateagencyng', label: 'X (Twitter)', icon: XIcon, hoverColor: 'hover:text-[#000000] dark:hover:text-[#ffffff]' },
+    { href: 'https://facebook.com/estateagencyng', label: 'Facebook', icon: Facebook, hoverColor: 'hover:text-[#1877F2]' },
+    { href: 'https://instagram.com/estateagencyng', label: 'Instagram', icon: Instagram, hoverColor: 'hover:text-[#E1306C]' },
+    { href: 'https://linkedin.com/company/estateagencyng', label: 'LinkedIn', icon: Linkedin, hoverColor: 'hover:text-[#0A66C2]' },
+     { href: 'https://youtube.com/@estateagencyng', label: 'YouTube', icon: Youtube, hoverColor: 'hover:text-[#FF0000]' },
   ];
 
 
   return (
-    <footer className="bg-muted text-muted-foreground mt-16 md:mt-24 relative"> {/* Added relative for back-to-top positioning */}
+    <footer className="bg-muted text-muted-foreground mt-16 md:mt-24 relative">
       <div className="container py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-8"> {/* Adjusted grid for more content */}
+        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-8">
           {/* Logo and Description */}
           <div className="md:col-span-2 lg:col-span-2 pr-8">
             <Link href="/" className="flex items-center space-x-2 mb-4">
               <Home className="h-8 w-8 text-primary" />
               <span className="text-xl font-bold text-foreground">
-                Estate Agency {/* Updated Project Name */}
+                Estate Agency
               </span>
             </Link>
             <p className="text-sm mb-4">
@@ -85,7 +84,7 @@ export function Footer() {
               guidance. Explore listings, get personalized recommendations, and
               more.
             </p>
-             {/* Newsletter Signup (Example) */}
+             {/* Newsletter Signup */}
             {/*
              <form className="flex gap-2 mt-4">
                  <Input type="email" placeholder="Enter your email" className="flex-grow" />
@@ -97,7 +96,7 @@ export function Footer() {
           {/* Footer Sections */}
           {footerSections.map((section) => (
             <div key={section.title} className="md:col-span-1">
-              <h3 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider"> {/* Enhanced title style */}
+              <h3 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">
                 {section.title}
               </h3>
               <ul className="space-y-2">
@@ -105,7 +104,7 @@ export function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm hover:text-primary hover:underline transition-colors" // Enhanced link style
+                      className="text-sm hover:text-primary hover:underline transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -119,7 +118,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between items-center">
           <p className="text-xs text-center md:text-left mb-4 md:mb-0">
-            &copy; {currentYear} Estate Agency. All rights reserved. {/* Updated Project Name and removed heart */}
+            &copy; {currentYear} Estate Agency. All rights reserved.
           </p>
            {/* Social Media Links */}
            <div className="flex space-x-4">
@@ -138,7 +137,6 @@ export function Footer() {
            </div>
         </div>
       </div>
-       {/* BackToTopButton is now in layout.jsx */}
     </footer>
   );
 }

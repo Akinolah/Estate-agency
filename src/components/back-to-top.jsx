@@ -12,7 +12,6 @@ export function BackToTopButton() {
 
   // Show button when page is scrolled down
   const toggleVisibility = () => {
-    // Check if window is defined (runs only on client)
     if (typeof window !== 'undefined') {
       if (window.scrollY > 300) {
         setIsVisible(true);

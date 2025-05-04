@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
 // Removed interfaces
 
 export function GalleryRoom({ properties }) { // Removed type
-    const [selectedProperty, setSelectedProperty] = useState(null); // Initialize with null
+    const [selectedProperty, setSelectedProperty] = useState(null);
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -52,7 +52,7 @@ export function GalleryRoom({ properties }) { // Removed type
                     style={{ columnFill: 'balance' }}
                  >
                     {allGalleryImages.map((image, index) => {
-                         // Find the property this image belongs to
+                        
                          const property = properties.find(p => p.id === image.propertyId);
                          if (!property) return null; // Should not happen if data is correct
 
@@ -65,9 +65,9 @@ export function GalleryRoom({ properties }) { // Removed type
                                 <Image
                                     src={image.src}
                                     alt={image.alt}
-                                    width={800} // Provide base width
-                                    height={600} // Provide base height to maintain aspect ratio
-                                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw" // Adjust sizes
+                                    width={800}
+                                    height={600}
+                                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
                                     style={{ width: '100%', height: 'auto', display: 'block' }} // Ensure image is responsive within its container
                                     className="transition-transform duration-300 ease-in-out group-hover:scale-105"
                                     data-ai-hint={image['data-ai-hint'] || "real estate interior exterior detail"} // Access data-ai-hint and provide default
@@ -75,7 +75,7 @@ export function GalleryRoom({ properties }) { // Removed type
                                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                      <Maximize className="w-8 h-8 text-white" />
                                 </div>
-                                {/* Optional: Add caption inside figure */}
+                                
                                 <figcaption className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                     <p className="text-white text-sm font-medium truncate">{image.alt}</p>
                                     <p className="text-white text-xs truncate">{image.propertyAddress}</p>

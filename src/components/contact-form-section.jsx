@@ -33,8 +33,8 @@ const formSchema = z.object({
   email: z.string().email({
     message: 'Please enter a valid email address.',
   }),
-   phone: z.string().optional(), // Optional phone number
-  inquiryType: z.enum(inquiryTypes, { // Removed explicit type casting
+   phone: z.string().optional(),
+  inquiryType: z.enum(inquiryTypes, {
         required_error: "Please select an inquiry type.",
      }),
   preferredContactMethod: z.enum(contactMethods, { // Removed explicit type casting
@@ -74,7 +74,7 @@ const submitContactForm = async (data) => { // Removed FormData type
   const success = true;
 
   if (success) {
-    return { success: true, message: `Thank you, ${data.name}! Your message regarding '${data.inquiryType}' has been received (logged to console). We'll contact you via ${data.preferredContactMethod} soon.` };
+    return { success: true, message: `Thank you, ${data.name}! Your message regarding '${data.inquiryType}' has been received. We'll contact you via ${data.preferredContactMethod} soon.` };
   } else {
     // This part is less likely to be reached in the mock scenario
     return { success: false, message: "Something went wrong while processing your message." };
@@ -288,7 +288,7 @@ export function ContactFormSection() {
                     <FormControl>
                       <Textarea
                         placeholder="Please provide details about your inquiry..."
-                        className="min-h-[150px] resize-y" // Allow vertical resize
+                        className="min-h-[150px] resize-y"
                         {...field}
                       />
                     </FormControl>

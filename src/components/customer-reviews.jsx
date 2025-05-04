@@ -11,7 +11,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 
 export function CustomerReviews({ reviews }) { // Removed type
   if (!reviews || reviews.length === 0) {
-    return null; // Don't render the section if there are no reviews
+    return null;
   }
 
   return (
@@ -23,7 +23,7 @@ export function CustomerReviews({ reviews }) { // Removed type
         <Carousel
           opts={{
             align: "start",
-            loop: reviews.length > 2, // Loop only if enough items
+            loop: reviews.length > 2, 
           }}
           className="w-full max-w-xs sm:max-w-xl md:max-w-3xl lg:max-w-5xl mx-auto"
         >
@@ -61,7 +61,7 @@ export function CustomerReviews({ reviews }) { // Removed type
               </CarouselItem>
             ))}
           </CarouselContent>
-          {reviews.length > 1 && ( // Show arrows only if more than 1 review
+          {reviews.length > 1 && (
             <>
                 <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2 hidden md:flex" />
                 <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2 hidden md:flex" />

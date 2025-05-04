@@ -4,11 +4,9 @@ import { InteractiveMapSection } from '@/components/interactive-map-section';
 import { MortgageCalculatorSection } from '@/components/mortgage-calculator-section';
 import { VirtualToursSection } from '@/components/virtual-tours-section';
 import { GalleryRoom } from '@/components/gallery-room';
-// Removed type import
 
-// Removed interface
 
-export function TechShowcase({ sampleProperties }) { // Removed type
+export function TechShowcase({ sampleProperties }) {
     return (
         <section id="tech-showcase" className="space-y-16 md:space-y-20">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">Leveraging Technology for You</h2>
