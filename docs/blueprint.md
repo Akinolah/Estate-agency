@@ -1,10 +1,9 @@
-# **App Name**: EstateFindr
+# **App Name**: Estate Agency
 
 ## Core Features:
 
 - Property Listings Display: Display property listings with key details like address, price, number of bedrooms/bathrooms, a prominent image gallery, 3D animations, and videos.
 - Filtering and Sorting: Implement a filtering and sorting system to allow users to refine property searches based on location, price range, property type, and other criteria.
-- AI-Powered Property Recommendations: Implement a tool that recommends properties to users based on their search history, saved properties, and stated preferences. Use a large language model to decide which properties to incorporate in the recommendations.
 - Gallery Room: It should have a Gallery room with animation gallery
 - Contact Form: Should have a function contact form
 - Header and Footer: Elaborated footer (without newsletter) and header with responsive navbar for all devices.
