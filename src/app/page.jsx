@@ -1,15 +1,13 @@
-'use client';
 
-import dynamic from 'next/dynamic';
 import { HeroSlider } from '@/components/hero-slider';
 import { PropertyListings } from '@/components/property-listings';
+import { InteractiveMapSection } from '@/components/interactive-map-section';
 import { VirtualToursSection } from '@/components/virtual-tours-section';
 import { MortgageCalculatorSection } from '@/components/mortgage-calculator-section';
 import { CustomerReviews } from '@/components/customer-reviews';
 import { ContactFormSection } from '@/components/contact-form-section';
 import { GalleryRoom } from '@/components/gallery-room';
-
-const InteractiveMapSection = dynamic(() => import('@/components/interactive-map-section').then(mod => ({ default: mod.InteractiveMapSection })), { ssr: false });
+// Removed type import
 
 // Placeholder data for properties - Updated for Nigerian context
 const sampleProperties = [
