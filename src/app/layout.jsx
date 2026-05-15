@@ -1,56 +1,43 @@
-
-'use client'; // Add this directive because CurrencyProvider uses context
+'use client';
 
 import { Inter, Roboto_Mono } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
-import { MapsProvider } from '@/components/providers/maps-provider'; // Import the new provider
+import { MapsProvider } from '@/components/providers/maps-provider';
 import { QueryClientProvider } from '@/components/providers/query-client-provider';
-import { BackToTopButton } from '@/components/back-to-top'; // Import BackToTopButton
-import { CurrencyProvider } from '@/components/providers/currency-provider'; // Import CurrencyProvider
+import { BackToTopButton } from '@/components/back-to-top';
+import { CurrencyProvider } from '@/components/providers/currency-provider';
+import { AuthProvider } from '@/components/providers/auth-provider';
 
-// Configure standard Google Fonts
 const inter = Inter({
-  variable: '--font-inter', // Update variable name
+  variable: '--font-inter',
   subsets: ['latin'],
 });
 
 const roboto_mono = Roboto_Mono({
-  variable: '--font-roboto-mono', // Update variable name
+  variable: '--font-roboto-mono',
   subsets: ['latin'],
-  weight: ['400', '700'], // Specify weights if needed
+  weight: ['400', '700'],
 });
-
-
-// Metadata cannot be defined in a client component. Move to a parent server component if needed.
-// export const metadata = {
-//   title: 'Estate Agency - Find Your Dream Property in Nigeria',
-//   description:
-//     'Search property listings, get accurate information, and find your perfect property in Nigeria with Estate Agency.',
-// };
 
 export default function RootLayout({ children }) {
   return (
-    // Removed whitespace between <html> and <body> tag which causes hydration error
     <html lang="en" className="scroll-smooth">
-      <body
-        // Use the new font variable names
-        className={`${inter.variable} ${roboto_mono.variable} font-sans antialiased flex flex-col min-h-screen`} // Added font-sans as default
-      >
+      <body className={`${inter.variable} ${roboto_mono.variable} font-sans antialiased flex flex-col min-h-screen`}>
         <QueryClientProvider>
-          {/* Wrap the content that needs map context with MapsProvider */}
-          <MapsProvider>
-             {/* Wrap content that needs currency context with CurrencyProvider */}
-            <CurrencyProvider>
+          <AuthProvider>
+            <MapsProvider>
+              <CurrencyProvider>
                 <Header />
-                <main className="flex-grow">{children}</main>
+                <main className="flex-grow px-4 sm:px-6 lg:px-8">{children}</main>
                 <Footer />
                 <Toaster />
-                <BackToTopButton /> {/* Add BackToTopButton */}
-            </CurrencyProvider>
-          </MapsProvider>
+                <BackToTopButton />
+              </CurrencyProvider>
+            </MapsProvider>
+          </AuthProvider>
         </QueryClientProvider>
       </body>
     </html>

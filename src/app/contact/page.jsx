@@ -1,11 +1,16 @@
 
-// src/app/contact/page.jsx
+'use client';
+
+import dynamic from 'next/dynamic';
 import { ContactFormSection } from '@/components/contact-form-section';
-import { InteractiveMapSection } from '@/components/interactive-map-section'; // Reuse map to show location
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Phone, Mail, MapPin, Clock, MessageSquare, Twitter, Facebook, Instagram } from 'lucide-react';
-// Removed type import
 import Link from 'next/link';
+
+const InteractiveMapSection = dynamic(
+  () => import('@/components/interactive-map-section').then(mod => ({ default: mod.InteractiveMapSection })),
+  { ssr: false }
+);
 
 // Define office location(s) - updated for Nigeria and new coordinates
 const officeLocation = {
