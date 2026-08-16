@@ -1,29 +1,21 @@
-
 'use client';
 
-// Removed type import
 import { APIProvider } from '@vis.gl/react-google-maps';
 
-
-export function MapsProvider({ children }) { // Removed type
+export function MapsProvider({ children }) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
-  if (!apiKey || apiKey === 'YOUR_MAPS_API_KEY_HERE') { // Check for placeholder too
-    console.error("Google Maps API Key is missing or invalid. Please set NEXT_PUBLIC_GOOGLE_MAPS_API_KEY in your .env.local file. Map features will be disabled.");
-    // Render children without the provider to allow the rest of the app to function
-    // You could also render a specific error component here
+  if (!apiKey || apiKey === 'YOUR_MAPS_API_KEY_HERE') {
     return (
-        <>
-            <div className="container py-4 text-center text-destructive bg-destructive/10 border border-destructive rounded-md my-4">
-                <p className="font-semibold">Map Configuration Error</p>
-                <p className="text-sm">Google Maps API Key (<code>NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code>) is missing, invalid, or associated with a project without billing enabled. Please configure it correctly in your <code>.env.local</code> file and Google Cloud Console to enable map functionality.</p>
-                <p className="text-xs mt-1">Ensure the key is valid, billing is enabled on the Cloud project, and required APIs (Maps JavaScript API, Places API) are enabled. Refer to the README.md for setup instructions.</p>
-                 <p className="text-xs mt-1">Common Errors: <code>InvalidKeyMapError</code>, <code>BillingNotEnabledMapError</code></p>
-            </div>
-             {/* Render children anyway, but map components might fail */}
-            {children}
-        </>
-        );
+      <>
+        <div className="container py-4 text-center text-destructive bg-destructive/10 border border-destructive rounded-md my-4">
+          <p className="font-semibold">Map Configuration Required</p>
+          <p className="text-sm mt-1">
+            Google Maps API Key is not configured. Map features are disabled until a valid key is set in the environment.
+          </p>
+        </div>
+      </>
+    );
   }
 
   return <APIProvider apiKey={apiKey}>{children}</APIProvider>;
